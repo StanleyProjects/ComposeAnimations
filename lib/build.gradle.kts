@@ -1,9 +1,13 @@
 import com.android.build.gradle.api.BaseVariant
 import sp.gx.core.GitHub
+import sp.gx.core.Markdown
+import sp.gx.core.Badge
 import sp.gx.core.Maven
 import sp.gx.core.camelCase
+import sp.gx.core.check
 import sp.gx.core.colonCase
 import sp.gx.core.kebabCase
+import sp.gx.core.resolve
 
 version = "0.0.1"
 
@@ -41,6 +45,31 @@ fun BaseVariant.getOutputFileName(extension: String): String {
     return "${kebabCase(rootProject.name, getVersion())}.$extension"
 }
 
+fun checkReadme(variant: BaseVariant) {
+    task(camelCase("check", variant.name, "Readme")) {
+        doLast {
+            val badge = Markdown.image(
+                text = "version",
+                url = Badge.url(
+                    label = "version",
+                    message = variant.getVersion(),
+                    color = "2962ff",
+                ),
+            )
+            val expected = setOf(
+                badge,
+                Markdown.link("Maven", Maven.Snapshot.url(maven.group, maven.id, variant.getVersion())),
+                Markdown.link("Documentation", GitHub.pages(gh.owner, gh.name).resolve("doc").resolve(variant.getVersion())),
+                "implementation(\"${colonCase(maven.group, maven.id, variant.getVersion())}\")",
+            )
+            rootDir.resolve("README.md").check(
+                expected = expected,
+                report = layout.buildDirectory.file("reports/analysis/readme/${variant.name}/index.html").get().asFile,
+            )
+        }
+    }
+}
+
 android {
     namespace = "sp.ax.jc.animations"
     compileSdk = Version.Android.compileSdk
@@ -76,6 +105,7 @@ android {
         val output = variant.outputs.single()
         check(output is com.android.build.gradle.internal.api.LibraryVariantOutputImpl)
         output.outputFileName = getOutputFileName("aar")
+        checkReadme(variant)
         afterEvaluate {
             tasks.getByName<JavaCompile>(camelCase("compile", variant.name, "JavaWithJavac")) {
                 targetCompatibility = Version.jvmTarget
