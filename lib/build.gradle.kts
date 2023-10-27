@@ -306,6 +306,26 @@ fun assembleMetadata(variant: BaseVariant) {
     }
 }
 
+fun assembleMavenMetadata(variant: BaseVariant) {
+    task(camelCase("assemble", variant.name, "MavenMetadata")) {
+        doLast {
+            val file = layout.buildDirectory.get()
+                .dir("maven")
+                .dir(variant.name)
+                .file("maven-metadata.xml")
+                .asFile
+            file.assemble(
+                Maven.metadata(
+                    groupId = maven.group,
+                    artifactId = maven.id,
+                    version = variant.getVersion(),
+                ),
+            )
+            println("Maven metadata: ${file.absolutePath}")
+        }
+    }
+}
+
 android {
     namespace = "sp.ax.jc.animations"
     compileSdk = Version.Android.compileSdk
@@ -351,7 +371,7 @@ android {
         assemblePom(variant)
         assembleSource(variant)
         assembleMetadata(variant)
-//        assembleMavenMetadata(variant) // todo
+        assembleMavenMetadata(variant)
         afterEvaluate {
             tasks.getByName<JavaCompile>(camelCase("compile", variant.name, "JavaWithJavac")) {
                 targetCompatibility = Version.jvmTarget
