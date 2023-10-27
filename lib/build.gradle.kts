@@ -272,6 +272,19 @@ fun assemblePom(variant: BaseVariant) {
     }
 }
 
+fun assembleSource(variant: BaseVariant) {
+    task<Jar>(camelCase("assemble", variant.name, "Source")) {
+        archiveBaseName = maven.id
+        archiveVersion = variant.getVersion()
+        archiveClassifier = "sources"
+        val sourceSets = variant.sourceSets.flatMap { it.kotlinDirectories }.distinctBy { it.absolutePath }
+        from(sourceSets)
+        doLast {
+            println("Archive: ${archiveFile.get().asFile.absolutePath}")
+        }
+    }
+}
+
 android {
     namespace = "sp.ax.jc.animations"
     compileSdk = Version.Android.compileSdk
@@ -315,7 +328,7 @@ android {
         checkDocumentation(variant)
         assembleDocumentation(variant)
         assemblePom(variant)
-//        assembleSource(variant) // todo
+        assembleSource(variant)
 //        assembleMetadata(variant) // todo
 //        assembleMavenMetadata(variant) // todo
         afterEvaluate {
