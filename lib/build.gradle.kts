@@ -3,6 +3,7 @@ import sp.gx.core.GitHub
 import sp.gx.core.Markdown
 import sp.gx.core.Badge
 import sp.gx.core.Maven
+import sp.gx.core.assemble
 import sp.gx.core.camelCase
 import sp.gx.core.check
 import sp.gx.core.colonCase
@@ -250,6 +251,27 @@ fun assembleDocumentation(variant: BaseVariant) {
     }
 }
 
+fun assemblePom(variant: BaseVariant) {
+    task(camelCase("assemble", variant.name, "Pom")) {
+        doLast {
+            val file = layout.buildDirectory.get()
+                .dir("maven")
+                .dir(variant.name)
+                .file(variant.getOutputFileName("pom"))
+                .asFile
+            file.assemble(
+                Maven.pom(
+                    groupId = maven.group,
+                    artifactId = maven.id,
+                    version = variant.getVersion(),
+                    packaging = "aar",
+                ),
+            )
+            println("POM: ${file.absolutePath}")
+        }
+    }
+}
+
 android {
     namespace = "sp.ax.jc.animations"
     compileSdk = Version.Android.compileSdk
@@ -292,7 +314,7 @@ android {
         checkCodeQuality(variant)
         checkDocumentation(variant)
         assembleDocumentation(variant)
-//        assemblePom(variant) // todo
+        assemblePom(variant)
 //        assembleSource(variant) // todo
 //        assembleMetadata(variant) // todo
 //        assembleMavenMetadata(variant) // todo
