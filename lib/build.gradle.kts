@@ -263,6 +263,11 @@ android {
         }
         checkCodeQuality(variant)
         checkDocumentation(variant)
+//        assembleDocumentation(variant) // todo
+//        assemblePom(variant) // todo
+//        assembleSource(variant) // todo
+//        assembleMetadata(variant) // todo
+//        assembleMavenMetadata(variant) // todo
         afterEvaluate {
             tasks.getByName<JavaCompile>(camelCase("compile", variant.name, "JavaWithJavac")) {
                 targetCompatibility = Version.jvmTarget
