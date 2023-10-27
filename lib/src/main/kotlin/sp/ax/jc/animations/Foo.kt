@@ -17,7 +17,7 @@ fun AnimatedFadeVisibility(
     label: String = "AnimatedVisibility:fade",
     animationSpec: FiniteAnimationSpec<Float>,
     outAnimationSpec: FiniteAnimationSpec<Float> = animationSpec,
-    content: @Composable AnimatedVisibilityScope.() -> Unit
+    content: @Composable AnimatedVisibilityScope.() -> Unit,
 ) {
     AnimatedVisibility(
         visible = visible,
@@ -36,7 +36,7 @@ fun AnimatedFadeVisibility(
     label: String = "AnimatedVisibility:fade:tween",
     duration: Duration,
     outDuration: Duration = duration,
-    content: @Composable AnimatedVisibilityScope.() -> Unit
+    content: @Composable AnimatedVisibilityScope.() -> Unit,
 ) {
     AnimatedFadeVisibility(
         visible = visible,
