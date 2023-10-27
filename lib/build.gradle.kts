@@ -34,6 +34,7 @@ plugins {
     id("kotlin-android")
     id("org.gradle.jacoco")
     id("io.gitlab.arturbosch.detekt") version Version.detekt
+    id("org.jetbrains.dokka") version Version.dokka
 }
 
 fun BaseVariant.getVersion(): String {
@@ -222,6 +223,33 @@ fun checkDocumentation(variant: BaseVariant) {
     }
 }
 
+fun assembleDocumentation(variant: BaseVariant) {
+    task<org.jetbrains.dokka.gradle.DokkaTask>(camelCase("assemble", variant.name, "Documentation")) {
+        outputDirectory = layout.buildDirectory.dir("documentation/${variant.name}")
+        moduleName = gh.name
+        moduleVersion = variant.getVersion()
+        dokkaSourceSets.create(camelCase(variant.name, "main")) {
+            reportUndocumented = false
+            sourceLink {
+                val path = "src/main/kotlin"
+                localDirectory = file(path)
+                remoteUrl = GitHub.url(gh.owner, gh.name).resolve("tree/${moduleVersion.get()}/lib/$path")
+            }
+            jdkVersion = Version.jvmTarget.toInt()
+        }
+        doLast {
+            val index = outputDirectory
+                .get()
+                .file("index.html")
+                .asFile
+                .existing()
+                .file()
+                .filled()
+            println("Documentation: ${index.absolutePath}")
+        }
+    }
+}
+
 android {
     namespace = "sp.ax.jc.animations"
     compileSdk = Version.Android.compileSdk
@@ -263,7 +291,7 @@ android {
         }
         checkCodeQuality(variant)
         checkDocumentation(variant)
-//        assembleDocumentation(variant) // todo
+        assembleDocumentation(variant)
 //        assemblePom(variant) // todo
 //        assembleSource(variant) // todo
 //        assembleMetadata(variant) // todo
