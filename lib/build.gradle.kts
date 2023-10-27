@@ -6,6 +6,9 @@ import sp.gx.core.Maven
 import sp.gx.core.camelCase
 import sp.gx.core.check
 import sp.gx.core.colonCase
+import sp.gx.core.existing
+import sp.gx.core.file
+import sp.gx.core.filled
 import sp.gx.core.kebabCase
 import sp.gx.core.resolve
 
@@ -29,6 +32,7 @@ repositories {
 plugins {
     id("com.android.library")
     id("kotlin-android")
+    id("org.gradle.jacoco")
 }
 
 fun BaseVariant.getVersion(): String {
@@ -70,6 +74,56 @@ fun checkReadme(variant: BaseVariant) {
     }
 }
 
+jacoco.toolVersion = Version.jacoco
+
+fun checkCoverage(variant: BaseVariant) {
+    val taskUnitTest = camelCase("test", variant.name, "UnitTest")
+    val executionData = layout.buildDirectory
+        .dir("outputs/unit_test_code_coverage/${variant.name}UnitTest")
+        .get()
+        .file("$taskUnitTest.exec")
+        .asFile
+    tasks.getByName<Test>(taskUnitTest) {
+        doLast {
+            executionData.existing().file().filled()
+        }
+    }
+    val taskCoverageReport = task<JacocoReport>(camelCase("assemble", variant.name, "CoverageReport")) {
+        dependsOn(taskUnitTest)
+        reports {
+            csv.required.set(false)
+            html.required.set(true)
+            xml.required.set(false)
+        }
+        sourceDirectories.setFrom(file("src/main/kotlin"))
+        val dirs = fileTree(layout.buildDirectory.dir("tmp/kotlin-classes").get().dir(variant.name))
+        classDirectories.setFrom(dirs)
+        executionData(executionData)
+        doLast {
+            val report = layout.buildDirectory
+                .dir("reports/jacoco/$name/html")
+                .get()
+                .file("index.html")
+                .asFile
+            if (report.exists()) {
+                println("Coverage report: ${report.absolutePath}")
+            }
+        }
+    }
+    task<JacocoCoverageVerification>(camelCase("check", variant.name, "Coverage")) {
+        dependsOn(taskCoverageReport)
+        violationRules {
+            rule {
+                limit {
+                    minimum = BigDecimal(0.96)
+                }
+            }
+        }
+        classDirectories.setFrom(taskCoverageReport.classDirectories)
+        executionData(taskCoverageReport.executionData)
+    }
+}
+
 android {
     namespace = "sp.ax.jc.animations"
     compileSdk = Version.Android.compileSdk
@@ -106,6 +160,9 @@ android {
         check(output is com.android.build.gradle.internal.api.LibraryVariantOutputImpl)
         output.outputFileName = getOutputFileName("aar")
         checkReadme(variant)
+        if (buildType.name == testBuildType) {
+            checkCoverage(variant)
+        }
         afterEvaluate {
             tasks.getByName<JavaCompile>(camelCase("compile", variant.name, "JavaWithJavac")) {
                 targetCompatibility = Version.jvmTarget
@@ -115,6 +172,12 @@ android {
                     jvmTarget = Version.jvmTarget
                     freeCompilerArgs = freeCompilerArgs + setOf("-module-name", colonCase(maven.group, maven.id))
                 }
+            }
+            tasks.getByName<JavaCompile>(camelCase("compile", variant.name, "UnitTestJavaWithJavac")) {
+                targetCompatibility = Version.jvmTarget
+            }
+            tasks.getByName<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>(camelCase("compile", variant.name, "UnitTestKotlin")) {
+                kotlinOptions.jvmTarget = Version.jvmTarget
             }
         }
     }
