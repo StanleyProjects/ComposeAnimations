@@ -185,6 +185,43 @@ fun checkCodeQuality(variant: BaseVariant) {
     }
 }
 
+fun checkDocumentation(variant: BaseVariant) {
+    val configs = setOf(
+        "common",
+        "documentation",
+    ).map { config ->
+        rootDir.resolve("buildSrc/src/main/resources/detekt/config/$config.yml")
+            .existing()
+            .file()
+            .filled()
+    }
+    task<io.gitlab.arturbosch.detekt.Detekt>(camelCase("check", variant.name, "Documentation")) {
+        jvmTarget = Version.jvmTarget
+        setSource(files("src/main/kotlin"))
+        config.setFrom(configs)
+        val report = layout.buildDirectory
+            .dir("reports/analysis/documentation/${variant.name}/html")
+            .get()
+            .file("index.html")
+            .asFile
+        reports {
+            html {
+                required.set(true)
+                outputLocation.set(report)
+            }
+            md.required.set(false)
+            sarif.required.set(false)
+            txt.required.set(false)
+            xml.required.set(false)
+        }
+        val detektTask = tasks.getByName<io.gitlab.arturbosch.detekt.Detekt>(camelCase("detekt", variant.name))
+        classpath.setFrom(detektTask.classpath)
+        doFirst {
+            println("Analysis report: ${report.absolutePath}")
+        }
+    }
+}
+
 android {
     namespace = "sp.ax.jc.animations"
     compileSdk = Version.Android.compileSdk
@@ -225,6 +262,7 @@ android {
             checkCoverage(variant)
         }
         checkCodeQuality(variant)
+        checkDocumentation(variant)
         afterEvaluate {
             tasks.getByName<JavaCompile>(camelCase("compile", variant.name, "JavaWithJavac")) {
                 targetCompatibility = Version.jvmTarget
