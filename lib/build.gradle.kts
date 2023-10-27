@@ -285,6 +285,27 @@ fun assembleSource(variant: BaseVariant) {
     }
 }
 
+fun assembleMetadata(variant: BaseVariant) {
+    task(camelCase("assemble", variant.name, "Metadata")) {
+        doLast {
+            val file = layout.buildDirectory.get()
+                .dir("yml")
+                .dir(variant.name)
+                .file("metadata.yml")
+                .asFile
+            file.assemble(
+                """
+                    repository:
+                     owner: '${gh.owner}'
+                     name: '${gh.name}'
+                    version: '${variant.getVersion()}'
+                """.trimIndent(),
+            )
+            println("Metadata: ${file.absolutePath}")
+        }
+    }
+}
+
 android {
     namespace = "sp.ax.jc.animations"
     compileSdk = Version.Android.compileSdk
@@ -329,7 +350,7 @@ android {
         assembleDocumentation(variant)
         assemblePom(variant)
         assembleSource(variant)
-//        assembleMetadata(variant) // todo
+        assembleMetadata(variant)
 //        assembleMavenMetadata(variant) // todo
         afterEvaluate {
             tasks.getByName<JavaCompile>(camelCase("compile", variant.name, "JavaWithJavac")) {
