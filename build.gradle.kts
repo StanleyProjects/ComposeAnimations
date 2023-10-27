@@ -1,3 +1,5 @@
+import sp.gx.core.check
+
 buildscript {
     repositories {
         google()
@@ -41,4 +43,13 @@ task<JavaExec>("checkCodeStyle") {
         "lib/build.gradle.kts",
         "--reporter=$reporter,output=${output.asFile.absolutePath}",
     )
+}
+
+task("checkLicense") {
+    doLast {
+        rootDir.resolve("LICENSE").check(
+            expected = emptySet(), // todo author
+            report = layout.buildDirectory.file("reports/analysis/license/index.html").get().asFile,
+        )
+    }
 }
