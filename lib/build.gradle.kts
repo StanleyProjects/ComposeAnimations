@@ -1,4 +1,5 @@
 import com.android.build.gradle.api.BaseVariant
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import sp.gx.core.Badge
 import sp.gx.core.GitHub
 import sp.gx.core.Markdown
@@ -263,8 +264,7 @@ fun assemblePom(variant: BaseVariant) {
                 .file(variant.getOutputFileName("pom"))
                 .assemble(
                     Maven.pom(
-                        groupId = maven.group,
-                        artifactId = maven.id,
+                        artifact = maven,
                         version = variant.getVersion(),
                         packaging = "aar",
                     ),
@@ -376,7 +376,7 @@ android {
             tasks.getByName<JavaCompile>(camelCase("compile", variant.name, "JavaWithJavac")) {
                 targetCompatibility = Version.jvmTarget
             }
-            tasks.getByName<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>(camelCase("compile", variant.name, "Kotlin")) {
+            tasks.getByName<KotlinCompile>(camelCase("compile", variant.name, "Kotlin")) {
                 kotlinOptions {
                     jvmTarget = Version.jvmTarget
                     freeCompilerArgs = freeCompilerArgs + setOf("-module-name", colonCase(maven.group, maven.id))
@@ -385,7 +385,7 @@ android {
             tasks.getByName<JavaCompile>(camelCase("compile", variant.name, "UnitTestJavaWithJavac")) {
                 targetCompatibility = Version.jvmTarget
             }
-            tasks.getByName<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>(camelCase("compile", variant.name, "UnitTestKotlin")) {
+            tasks.getByName<KotlinCompile>(camelCase("compile", variant.name, "UnitTestKotlin")) {
                 kotlinOptions.jvmTarget = Version.jvmTarget
             }
         }
