@@ -239,15 +239,13 @@ fun assembleDocumentation(variant: BaseVariant) {
             sourceLink {
                 val path = "src/main/kotlin"
                 localDirectory = file(path)
-                remoteUrl = GitHub.url(gh.owner, gh.name).resolve("tree/${moduleVersion.get()}/lib/$path")
+                remoteUrl = gh.url().resolve("tree", moduleVersion.get(), "lib", path)
             }
             jdkVersion = Version.jvmTarget.toInt()
         }
         doLast {
-            val index = outputDirectory
-                .get()
+            val index = outputDirectory.get()
                 .file("index.html")
-                .asFile
                 .existing()
                 .file()
                 .filled()
