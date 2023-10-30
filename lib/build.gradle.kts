@@ -315,14 +315,12 @@ fun assembleMavenMetadata(variant: BaseVariant) {
                 .dir("maven")
                 .dir(variant.name)
                 .file("maven-metadata.xml")
-                .asFile
-            file.assemble(
-                Maven.metadata(
-                    groupId = maven.group,
-                    artifactId = maven.id,
-                    version = variant.getVersion(),
-                ),
-            )
+                .assemble(
+                    Maven.metadata(
+                        artifact = maven,
+                        version = variant.getVersion(),
+                    ),
+                )
             println("Maven metadata: ${file.absolutePath}")
         }
     }
