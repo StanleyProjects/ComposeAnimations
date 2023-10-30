@@ -65,13 +65,18 @@ fun checkReadme(variant: BaseVariant) {
             )
             val expected = setOf(
                 badge,
-                Markdown.link("Maven", Maven.Snapshot.url(maven.group, maven.id, variant.getVersion())),
-                Markdown.link("Documentation", GitHub.pages(gh.owner, gh.name).resolve("doc").resolve(variant.getVersion())),
+                Markdown.link("Maven", Maven.Snapshot.url(maven, variant.getVersion())),
+                Markdown.link("Documentation", gh.pages().resolve("doc", variant.getVersion())),
                 "implementation(\"${colonCase(maven.group, maven.id, variant.getVersion())}\")",
             )
+            val report = layout.buildDirectory.get()
+                .dir("reports/analysis/readme")
+                .dir(variant.name)
+                .file("index.html")
+                .asFile
             rootDir.resolve("README.md").check(
                 expected = expected,
-                report = layout.buildDirectory.file("reports/analysis/readme/${variant.name}/index.html").get().asFile,
+                report = report,
             )
         }
     }
