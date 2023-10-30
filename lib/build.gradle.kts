@@ -97,9 +97,9 @@ fun checkCoverage(variant: BaseVariant) {
     val taskCoverageReport = task<JacocoReport>(camelCase("assemble", variant.name, "CoverageReport")) {
         dependsOn(taskUnitTest)
         reports {
-            csv.required.set(false)
-            html.required.set(true)
-            xml.required.set(false)
+            csv.required = false
+            html.required = true
+            xml.required = false
         }
         sourceDirectories.setFrom(file("src/main/kotlin"))
         val dirs = layout.buildDirectory.get()
