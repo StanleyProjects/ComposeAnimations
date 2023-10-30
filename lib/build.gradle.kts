@@ -282,7 +282,8 @@ fun assembleSource(variant: BaseVariant) {
         val sourceSets = variant.sourceSets.flatMap { it.kotlinDirectories }.distinctBy { it.absolutePath }
         from(sourceSets)
         doLast {
-            println("Archive: ${archiveFile.get().asFile.absolutePath}")
+            val file = archiveFile.get().asFile
+            println("Archive: ${file.absolutePath}")
         }
     }
 }
