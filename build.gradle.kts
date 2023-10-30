@@ -32,7 +32,10 @@ task<JavaExec>("checkCodeStyle") {
     classpath = ktlint
     mainClass.set("com.pinterest.ktlint.Main")
     val reporter = "html"
-    val output = layout.buildDirectory.file("reports/analysis/code/style/html/index.html").get()
+    val output = layout.buildDirectory.get()
+        .dir("reports/analysis/code/style/html")
+        .file("index.html")
+        .asFile
     args(
         "build.gradle.kts",
         "settings.gradle.kts",
@@ -41,15 +44,21 @@ task<JavaExec>("checkCodeStyle") {
         "lib/src/main/kotlin/**/*.kt",
         "lib/src/test/kotlin/**/*.kt",
         "lib/build.gradle.kts",
-        "--reporter=$reporter,output=${output.asFile.absolutePath}",
+        "--reporter=$reporter,output=${output.absolutePath}",
     )
 }
 
 task("checkLicense") {
     doLast {
+        val author = "Stanley Wintergreen" // todo
+        val report = layout.buildDirectory.get()
+            .dir("reports/analysis/license")
+            .file("index.html")
+            .asFile
         rootDir.resolve("LICENSE").check(
-            expected = emptySet(), // todo author
-            report = layout.buildDirectory.file("reports/analysis/license/index.html").get().asFile,
+            expected = emptySet(),
+            regexes = setOf("^Copyright 2\\d{3} $author${'$'}".toRegex()),
+            report = report,
         )
     }
 }
