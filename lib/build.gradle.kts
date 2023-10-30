@@ -295,15 +295,14 @@ fun assembleMetadata(variant: BaseVariant) {
                 .dir("yml")
                 .dir(variant.name)
                 .file("metadata.yml")
-                .asFile
-            file.assemble(
-                """
-                    repository:
-                     owner: '${gh.owner}'
-                     name: '${gh.name}'
-                    version: '${variant.getVersion()}'
-                """.trimIndent(),
-            )
+                .assemble(
+                    """
+                        repository:
+                         owner: '${gh.owner}'
+                         name: '${gh.name}'
+                        version: '${variant.getVersion()}'
+                    """.trimIndent(),
+                )
             println("Metadata: ${file.absolutePath}")
         }
     }
