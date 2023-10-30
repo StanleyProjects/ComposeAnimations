@@ -261,15 +261,14 @@ fun assemblePom(variant: BaseVariant) {
                 .dir("maven")
                 .dir(variant.name)
                 .file(variant.getOutputFileName("pom"))
-                .asFile
-            file.assemble(
-                Maven.pom(
-                    groupId = maven.group,
-                    artifactId = maven.id,
-                    version = variant.getVersion(),
-                    packaging = "aar",
-                ),
-            )
+                .assemble(
+                    Maven.pom(
+                        groupId = maven.group,
+                        artifactId = maven.id,
+                        version = variant.getVersion(),
+                        packaging = "aar",
+                    ),
+                )
             println("POM: ${file.absolutePath}")
         }
     }
