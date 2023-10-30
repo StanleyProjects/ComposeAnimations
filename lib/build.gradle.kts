@@ -86,11 +86,9 @@ jacoco.toolVersion = Version.jacoco
 
 fun checkCoverage(variant: BaseVariant) {
     val taskUnitTest = camelCase("test", variant.name, "UnitTest")
-    val executionData = layout.buildDirectory
+    val executionData = layout.buildDirectory.get()
         .dir("outputs/unit_test_code_coverage/${variant.name}UnitTest")
-        .get()
         .file("$taskUnitTest.exec")
-        .asFile
     tasks.getByName<Test>(taskUnitTest) {
         doLast {
             executionData.existing().file().filled()
@@ -104,13 +102,15 @@ fun checkCoverage(variant: BaseVariant) {
             xml.required.set(false)
         }
         sourceDirectories.setFrom(file("src/main/kotlin"))
-        val dirs = fileTree(layout.buildDirectory.dir("tmp/kotlin-classes").get().dir(variant.name))
+        val dirs = layout.buildDirectory.get()
+            .dir("tmp/kotlin-classes")
+            .dir(variant.name)
+            .let(::fileTree)
         classDirectories.setFrom(dirs)
         executionData(executionData)
         doLast {
-            val report = layout.buildDirectory
+            val report = layout.buildDirectory.get()
                 .dir("reports/jacoco/$name/html")
-                .get()
                 .file("index.html")
                 .asFile
             if (report.exists()) {
