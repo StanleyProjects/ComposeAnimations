@@ -206,20 +206,20 @@ fun checkDocumentation(variant: BaseVariant) {
         jvmTarget = Version.jvmTarget
         setSource(files("src/main/kotlin"))
         config.setFrom(configs)
-        val report = layout.buildDirectory
-            .dir("reports/analysis/documentation/${variant.name}/html")
-            .get()
+        val report = layout.buildDirectory.get()
+            .dir("reports/analysis/documentation")
+            .dir("${variant.name}/html")
             .file("index.html")
             .asFile
         reports {
             html {
-                required.set(true)
-                outputLocation.set(report)
+                required = true
+                outputLocation = report
             }
-            md.required.set(false)
-            sarif.required.set(false)
-            txt.required.set(false)
-            xml.required.set(false)
+            md.required = false
+            sarif.required = false
+            txt.required = false
+            xml.required = false
         }
         val detektTask = tasks.getByName<io.gitlab.arturbosch.detekt.Detekt>(camelCase("detekt", variant.name))
         classpath.setFrom(detektTask.classpath)
