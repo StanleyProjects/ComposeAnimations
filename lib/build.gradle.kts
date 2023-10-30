@@ -1,7 +1,7 @@
 import com.android.build.gradle.api.BaseVariant
+import sp.gx.core.Badge
 import sp.gx.core.GitHub
 import sp.gx.core.Markdown
-import sp.gx.core.Badge
 import sp.gx.core.Maven
 import sp.gx.core.assemble
 import sp.gx.core.camelCase
