@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,20 +17,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
-import sp.ax.jc.animations.AnimatedFadeVisibility
-import kotlin.time.Duration.Companion.seconds
+import sp.ax.jc.animations.tween.slide.SlideHorizontally
 
 internal class MainActivity : AppCompatActivity() {
     override fun onCreate(inState: Bundle?) {
         super.onCreate(inState)
         setContent {
+            val insets = LocalView.current.rootWindowInsets.toPaddings()
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color.White)
-                    .padding(vertical = 48.dp),
+                    .padding(insets),
             ) {
                 val visibleState = remember { mutableStateOf(false) }
                 BasicText(
@@ -45,10 +44,9 @@ internal class MainActivity : AppCompatActivity() {
                         .wrapContentSize(),
                     text = if (visibleState.value) "hide" else "show",
                 )
-                AnimatedFadeVisibility(
+                SlideHorizontally(
                     visible = visibleState.value,
                     modifier = Modifier.align(Alignment.Center),
-                    duration = 0.5.seconds,
                 ) {
                     BasicText(
                         modifier = Modifier
