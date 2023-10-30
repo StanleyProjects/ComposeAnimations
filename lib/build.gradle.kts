@@ -168,20 +168,20 @@ fun checkCodeQuality(variant: BaseVariant) {
                 }
                 else -> error("Type \"$type\" is not supported!")
             }
-            val report = layout.buildDirectory
-                .dir("reports/analysis/code/quality/${variant.name}/$type/html")
-                .get()
+            val report = layout.buildDirectory.get()
+                .dir("reports/analysis/code/quality")
+                .dir("${variant.name}/$type/html")
                 .file("index.html")
                 .asFile
             reports {
                 html {
-                    required.set(true)
-                    outputLocation.set(report)
+                    required = true
+                    outputLocation = report
                 }
-                md.required.set(false)
-                sarif.required.set(false)
-                txt.required.set(false)
-                xml.required.set(false)
+                md.required = false
+                sarif.required = false
+                txt.required = false
+                xml.required = false
             }
             val detektTask = tasks.getByName<io.gitlab.arturbosch.detekt.Detekt>(camelCase("detekt", variant.name, postfix))
             classpath.setFrom(detektTask.classpath)
