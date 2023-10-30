@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import sp.gx.core.camelCase
 import sp.gx.core.kebabCase
 
@@ -45,19 +46,18 @@ android {
 androidComponents.onVariants { variant ->
     val output = variant.outputs.single()
     check(output is com.android.build.api.variant.impl.VariantOutputImpl)
-    android.defaultConfig.versionName
     val outputFileName = kebabCase(
         camelCase(rootProject.name, "Sample"),
         android.defaultConfig.versionName!!,
         variant.name,
         android.defaultConfig.versionCode!!.toString(),
     )
-    output.outputFileName.set("$outputFileName.apk")
+    output.outputFileName = "$outputFileName.apk"
     afterEvaluate {
         tasks.getByName<JavaCompile>(camelCase("compile", variant.name, "JavaWithJavac")) {
             targetCompatibility = Version.jvmTarget
         }
-        tasks.getByName<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>(camelCase("compile", variant.name, "Kotlin")) {
+        tasks.getByName<KotlinCompile>(camelCase("compile", variant.name, "Kotlin")) {
             kotlinOptions.jvmTarget = Version.jvmTarget
         }
     }
