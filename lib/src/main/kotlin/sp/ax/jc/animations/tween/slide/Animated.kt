@@ -24,7 +24,7 @@ fun Slide(
     outDelay: Duration,
     outEasing: Easing,
     targetOffset: (fullSize: IntSize) -> IntOffset,
-    content: @Composable AnimatedVisibilityScope.() -> Unit
+    content: @Composable AnimatedVisibilityScope.() -> Unit,
 ) {
     AnimatedVisibility(
         visible = visible,
@@ -56,7 +56,7 @@ fun Slide(
     easing: Easing,
     initialOffset: (fullSize: IntSize) -> IntOffset,
     targetOffset: (fullSize: IntSize) -> IntOffset,
-    content: @Composable AnimatedVisibilityScope.() -> Unit
+    content: @Composable AnimatedVisibilityScope.() -> Unit,
 ) {
     Slide(
         visible = visible,
@@ -84,7 +84,7 @@ fun SlideHorizontally(
     easing: Easing = LocalTweenStyle.current.easing,
     initialOffsetX: (fullWidth: Int) -> Int = LocalSlideHStyle.current.initialOffsetX,
     targetOffsetX: (fullWidth: Int) -> Int = LocalSlideHStyle.current.targetOffsetX,
-    content: @Composable AnimatedVisibilityScope.() -> Unit
+    content: @Composable AnimatedVisibilityScope.() -> Unit,
 ) {
     Slide(
         visible = visible,
