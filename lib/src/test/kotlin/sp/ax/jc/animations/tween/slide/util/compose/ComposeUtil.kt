@@ -33,7 +33,7 @@ private fun assertAnimationBegin(
     provider: SemanticsNodeInteractionsProvider,
     containerTag: String,
     contentTag: String,
-    expectedOffset: (parentSize: IntSize) -> Offset = { Offset(x = it.width.toFloat(), y = 0f) },
+    expectedOffset: (parentSize: IntSize) -> Offset,
 ) {
     provider.onNodeWithTag(containerTag).assertIsDisplayed()
     provider.onNodeWithTag(contentTag).also { node ->
@@ -48,11 +48,7 @@ private fun assertAnimationInTheMiddle(
     provider: SemanticsNodeInteractionsProvider,
     containerTag: String,
     contentTag: String,
-    offsetXRange: (parentSize: IntSize) -> Pair<Float, Float> = {
-        val min = 0f
-        val max = it.width.toFloat()
-        min to max
-    },
+    offsetXRange: (parentSize: IntSize) -> Pair<Float, Float>,
 ) {
     provider.onNodeWithTag(containerTag).assertIsDisplayed()
     provider.onNodeWithTag(contentTag).also { node ->
@@ -60,8 +56,9 @@ private fun assertAnimationInTheMiddle(
         node.assertIsNotDisplayed()
         val sn = node.fetchSemanticsNode()
         val (xMin, xMax) = offsetXRange(sn.requireParent().size)
-        assertTrue(sn.positionInRoot.x > xMin)
-        assertTrue(sn.positionInRoot.x < xMax)
+        val message = "Node.x = ${sn.positionInRoot.x}, but range is $xMin..$xMax"
+        assertTrue(message, sn.positionInRoot.x > xMin)
+        assertTrue(message, sn.positionInRoot.x < xMax)
     }
 }
 
@@ -88,6 +85,14 @@ internal fun assertAnimation(
     performStartToFinish: () -> Unit,
     performFinishToStart: () -> Unit,
     duration: Duration,
+    expectedOffsetOnInitial: (parentSize: IntSize) -> Offset = { Offset(x = it.width.toFloat(), y = 0f) },
+    offsetXRangeInTheMiddleInitial: (parentSize: IntSize) -> Pair<Float, Float> = {
+        val min = 0f
+        val max = it.width.toFloat()
+        min to max
+    },
+    offsetXRangeInTheMiddleTarget: (parentSize: IntSize) -> Pair<Float, Float> = offsetXRangeInTheMiddleInitial,
+    expectedOffsetOnTarget: (parentSize: IntSize) -> Offset = expectedOffsetOnInitial,
     onContentReady: () -> Unit,
 ) {
     check(!mainClock.autoAdvance)
@@ -102,12 +107,14 @@ internal fun assertAnimation(
         provider = provider,
         containerTag = containerTag,
         contentTag = contentTag,
+        expectedOffset = expectedOffsetOnInitial,
     )
     mainClock.advanceTimeBy(duration.div(2))
     assertAnimationInTheMiddle(
         provider = provider,
         containerTag = containerTag,
         contentTag = contentTag,
+        offsetXRange = offsetXRangeInTheMiddleInitial,
     )
     mainClock.advanceTimeBy(duration.div(2))
     assertAnimationFinish(
@@ -122,12 +129,14 @@ internal fun assertAnimation(
         provider = provider,
         containerTag = containerTag,
         contentTag = contentTag,
+        offsetXRange = offsetXRangeInTheMiddleTarget,
     )
     mainClock.advanceTimeBy(duration.div(2))
     assertAnimationBegin(
         provider = provider,
         containerTag = containerTag,
         contentTag = contentTag,
+        expectedOffset = expectedOffsetOnTarget,
     )
     mainClock.advanceTimeByFrame()
     assertAnimationPreStart(

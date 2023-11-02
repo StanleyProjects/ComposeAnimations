@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
@@ -218,6 +219,55 @@ internal class AnimatedTest {
             containerTag = animatedContainer,
             contentTag = animatedContent,
             switcherTag = switcher,
+        )
+    }
+
+    @Test
+    fun SlideHVisibilityToRightToRightTest() {
+        val animatedContainer = "animatedContainer"
+        val animatedContent = "animatedContent"
+        val switcher = "switcher"
+        rule.mainClock.autoAdvance = false
+        val duration = AnimationConstants.DefaultDurationMillis.milliseconds
+        rule.setContent {
+            Content(switcherTag = switcher) { visible: Boolean ->
+                SlideHVisibility(
+                    visible = visible,
+                    modifier = Modifier.testTag(animatedContainer),
+                    initialOffsetX = { fullWidth: Int -> -fullWidth },
+                    targetOffsetX = { fullWidth: Int -> fullWidth },
+                ) {
+                    AnimatedContent(testTag = animatedContent)
+                }
+            }
+        }
+        assertAnimation(
+            provider = rule,
+            mainClock = rule.mainClock,
+            containerTag = animatedContainer,
+            contentTag = animatedContent,
+            performStartToFinish = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            performFinishToStart = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            duration = duration,
+            expectedOffsetOnInitial = {
+                Offset(x = -it.width.toFloat(), y = 0f)
+            },
+            offsetXRangeInTheMiddleInitial = {
+                -it.width.toFloat() to 0f
+            },
+            offsetXRangeInTheMiddleTarget = {
+                0f to it.width.toFloat()
+            },
+            expectedOffsetOnTarget = {
+                Offset(x = it.width.toFloat(), y = 0f)
+            },
+            onContentReady = {
+                rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
+            },
         )
     }
 }
