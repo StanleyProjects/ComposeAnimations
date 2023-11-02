@@ -1,7 +1,6 @@
 package sp.ax.jc.animations.tween.slide.util.compose
 
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.test.MainTestClock
 import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
 import androidx.compose.ui.test.assertIsDisplayed
@@ -10,24 +9,10 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.unit.IntSize
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import sp.ax.jc.animations.tween.slide.assertAnimationPreStart
+import sp.ax.jc.animations.util.advanceTimeBy
+import sp.ax.jc.animations.util.requireParent
 import kotlin.time.Duration
-
-private fun MainTestClock.advanceTimeBy(duration: Duration, ignoreFrameDuration: Boolean = false) {
-    advanceTimeBy(milliseconds = duration.inWholeMilliseconds, ignoreFrameDuration = ignoreFrameDuration)
-}
-
-private fun SemanticsNode.requireParent(): SemanticsNode {
-    return parent ?: error("Parent does not exist!")
-}
-
-private fun assertAnimationPreStart(
-    provider: SemanticsNodeInteractionsProvider,
-    containerTag: String,
-    contentTag: String,
-) {
-    provider.onNodeWithTag(containerTag).assertDoesNotExist()
-    provider.onNodeWithTag(contentTag).assertDoesNotExist()
-}
 
 private fun assertAnimationBegin(
     provider: SemanticsNodeInteractionsProvider,
@@ -97,8 +82,7 @@ internal fun assertAnimation(
     onContentReady: () -> Unit,
 ) {
     check(!mainClock.autoAdvance)
-    assertAnimationPreStart(
-        provider = provider,
+    provider.assertAnimationPreStart(
         containerTag = containerTag,
         contentTag = contentTag,
     )
@@ -142,8 +126,7 @@ internal fun assertAnimation(
         expectedOffset = expectedOffsetOnTarget,
     )
     mainClock.advanceTimeByFrame()
-    assertAnimationPreStart(
-        provider = provider,
+    provider.assertAnimationPreStart(
         containerTag = containerTag,
         contentTag = contentTag,
     )
