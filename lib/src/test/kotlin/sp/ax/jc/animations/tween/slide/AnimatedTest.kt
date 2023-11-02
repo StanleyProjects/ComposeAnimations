@@ -79,6 +79,7 @@ internal class AnimatedTest {
         contentTag: String,
         switcherTag: String,
         duration: Duration = AnimationConstants.DefaultDurationMillis.milliseconds,
+        delay: Duration = Duration.ZERO,
     ) {
         assertAnimation(
             provider = rule,
@@ -92,6 +93,7 @@ internal class AnimatedTest {
                 rule.onNodeWithTag(switcherTag).performClick()
             },
             duration = duration,
+            delay = delay,
             onContentReady = {
                 rule.onNodeWithTag(contentTag).assertTextEquals(contentTag)
             },
@@ -228,7 +230,6 @@ internal class AnimatedTest {
         val animatedContent = "animatedContent"
         val switcher = "switcher"
         rule.mainClock.autoAdvance = false
-        val duration = AnimationConstants.DefaultDurationMillis.milliseconds
         rule.setContent {
             Content(switcherTag = switcher) { visible: Boolean ->
                 SlideHVisibility(
@@ -252,7 +253,8 @@ internal class AnimatedTest {
             performFinishToStart = {
                 rule.onNodeWithTag(switcher).performClick()
             },
-            duration = duration,
+            duration = AnimationConstants.DefaultDurationMillis.milliseconds,
+            delay = Duration.ZERO,
             expectedOffsetOnInitial = {
                 Offset(x = -it.width.toFloat(), y = 0f)
             },
@@ -268,6 +270,32 @@ internal class AnimatedTest {
             onContentReady = {
                 rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
             },
+        )
+    }
+
+    @Test
+    fun SlideHVisibilityCustomDelayTest() {
+        val animatedContainer = "animatedContainer"
+        val animatedContent = "animatedContent"
+        val switcher = "switcher"
+        rule.mainClock.autoAdvance = false
+        val delay = 1.seconds
+        rule.setContent {
+            Content(switcherTag = switcher) { visible: Boolean ->
+                SlideHVisibility(
+                    visible = visible,
+                    modifier = Modifier.testTag(animatedContainer),
+                    delay = delay,
+                ) {
+                    AnimatedContent(testTag = animatedContent)
+                }
+            }
+        }
+        assertAnimation(
+            containerTag = animatedContainer,
+            contentTag = animatedContent,
+            switcherTag = switcher,
+            delay = delay,
         )
     }
 }

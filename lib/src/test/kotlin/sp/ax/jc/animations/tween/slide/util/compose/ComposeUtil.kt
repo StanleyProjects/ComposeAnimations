@@ -84,6 +84,7 @@ internal fun assertAnimation(
     mainClock: MainTestClock,
     performStartToFinish: () -> Unit,
     performFinishToStart: () -> Unit,
+    delay: Duration,
     duration: Duration,
     expectedOffsetOnInitial: (parentSize: IntSize) -> Offset = { Offset(x = it.width.toFloat(), y = 0f) },
     offsetXRangeInTheMiddleInitial: (parentSize: IntSize) -> Pair<Float, Float> = {
@@ -109,6 +110,7 @@ internal fun assertAnimation(
         contentTag = contentTag,
         expectedOffset = expectedOffsetOnInitial,
     )
+    mainClock.advanceTimeBy(delay)
     mainClock.advanceTimeBy(duration.div(2))
     assertAnimationInTheMiddle(
         provider = provider,
@@ -124,6 +126,7 @@ internal fun assertAnimation(
     )
     onContentReady()
     performFinishToStart()
+    mainClock.advanceTimeBy(delay)
     mainClock.advanceTimeBy(duration.div(2))
     assertAnimationInTheMiddle(
         provider = provider,
