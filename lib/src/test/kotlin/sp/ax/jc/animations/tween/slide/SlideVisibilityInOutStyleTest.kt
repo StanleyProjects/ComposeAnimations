@@ -25,7 +25,7 @@ import org.robolectric.RobolectricTestRunner
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(RobolectricTestRunner::class)
-internal class SlideVisibilityTest {
+internal class SlideVisibilityInOutStyleTest {
     @get:Rule
     val rule = createComposeRule()
 
@@ -69,10 +69,13 @@ internal class SlideVisibilityTest {
             Content(switcherTag = switcher) { visible: Boolean ->
                 SlideVisibility(
                     visible = visible,
-                    duration = duration,
-                    delay = delay,
-                    easing = easing,
+                    inDuration = duration,
+                    inDelay = delay,
+                    inEasing = easing,
                     initialOffset = getOffset,
+                    outDuration = duration,
+                    outDelay = delay,
+                    outEasing = easing,
                     targetOffset = getOffset,
                 ) {
                     AnimatedContent(testTag = animatedContent)
@@ -89,18 +92,23 @@ internal class SlideVisibilityTest {
     fun defaultTest() {
         val animatedContent = "animatedContent"
         val switcher = "switcher"
-        val duration = .6.seconds
-        val delay = .3.seconds
+        val inDuration = .6.seconds
+        val inDelay = .3.seconds
+        val outDuration = .8.seconds
+        val outDelay = .4.seconds
         val easing = Ease
         val getOffset: (fullSize: IntSize) -> IntOffset = { IntOffset(x = it.width, y = 0) }
         rule.setContent {
             Content(switcherTag = switcher) { visible: Boolean ->
                 SlideVisibility(
                     visible = visible,
-                    duration = duration,
-                    delay = delay,
-                    easing = easing,
+                    inDuration = inDuration,
+                    inDelay = inDelay,
+                    inEasing = easing,
                     initialOffset = getOffset,
+                    outDuration = outDuration,
+                    outDelay = outDelay,
+                    outEasing = easing,
                     targetOffset = getOffset,
                 ) {
                     AnimatedContent(testTag = animatedContent)
@@ -115,10 +123,57 @@ internal class SlideVisibilityTest {
             performFinishToStart = {
                 rule.onNodeWithTag(switcher).performClick()
             },
-            inDuration = duration,
-            inDelay = delay,
-            outDuration = duration,
-            outDelay = delay,
+            inDuration = inDuration,
+            inDelay = inDelay,
+            outDuration = outDuration,
+            outDelay = outDelay,
+            onContentReady = {
+                rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
+            },
+        )
+    }
+
+    @Test
+    fun labelTest() {
+        val animatedContent = "animatedContent"
+        val switcher = "switcher"
+        val label = "label"
+        val inDuration = .6.seconds
+        val inDelay = .3.seconds
+        val outDuration = .8.seconds
+        val outDelay = .4.seconds
+        val easing = Ease
+        val getOffset: (fullSize: IntSize) -> IntOffset = { IntOffset(x = it.width, y = 0) }
+        rule.setContent {
+            Content(switcherTag = switcher) { visible: Boolean ->
+                SlideVisibility(
+                    visible = visible,
+                    label = label,
+                    inDuration = inDuration,
+                    inDelay = inDelay,
+                    inEasing = easing,
+                    initialOffset = getOffset,
+                    outDuration = outDuration,
+                    outDelay = outDelay,
+                    outEasing = easing,
+                    targetOffset = getOffset,
+                ) {
+                    AnimatedContent(testTag = animatedContent)
+                }
+            }
+        }
+        rule.assertAnimation(
+            contentTag = animatedContent,
+            performStartToFinish = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            performFinishToStart = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            inDuration = inDuration,
+            inDelay = inDelay,
+            outDuration = outDuration,
+            outDelay = outDelay,
             onContentReady = {
                 rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
             },
@@ -130,8 +185,10 @@ internal class SlideVisibilityTest {
         val animatedContainer = "animatedContainer"
         val animatedContent = "animatedContent"
         val switcher = "switcher"
-        val duration = .6.seconds
-        val delay = .3.seconds
+        val inDuration = .6.seconds
+        val inDelay = .3.seconds
+        val outDuration = .8.seconds
+        val outDelay = .4.seconds
         val easing = Ease
         val getOffset: (fullSize: IntSize) -> IntOffset = { IntOffset(x = it.width, y = 0) }
         rule.setContent {
@@ -139,10 +196,13 @@ internal class SlideVisibilityTest {
                 SlideVisibility(
                     visible = visible,
                     modifier = Modifier.testTag(animatedContainer),
-                    duration = duration,
-                    delay = delay,
-                    easing = easing,
+                    inDuration = inDuration,
+                    inDelay = inDelay,
+                    inEasing = easing,
                     initialOffset = getOffset,
+                    outDuration = outDuration,
+                    outDelay = outDelay,
+                    outEasing = easing,
                     targetOffset = getOffset,
                 ) {
                     AnimatedContent(testTag = animatedContent)
@@ -158,10 +218,10 @@ internal class SlideVisibilityTest {
             performFinishToStart = {
                 rule.onNodeWithTag(switcher).performClick()
             },
-            inDuration = duration,
-            inDelay = delay,
-            outDuration = duration,
-            outDelay = delay,
+            inDuration = inDuration,
+            inDelay = inDelay,
+            outDuration = outDuration,
+            outDelay = outDelay,
             onContentReady = {
                 rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
             },
