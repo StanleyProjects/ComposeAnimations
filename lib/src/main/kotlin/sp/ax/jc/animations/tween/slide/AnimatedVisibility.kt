@@ -11,6 +11,7 @@ import sp.ax.jc.animations.style.LocalSlideHStyle
 import sp.ax.jc.animations.style.LocalTweenStyle
 import kotlin.time.Duration
 
+@Suppress("LongParameterList", "FunctionNaming")
 @Composable
 fun SlideVisibility(
     visible: Boolean,
@@ -46,6 +47,7 @@ fun SlideVisibility(
     )
 }
 
+@Suppress("LongParameterList", "FunctionNaming")
 @Composable
 fun SlideVisibility(
     visible: Boolean,
@@ -74,6 +76,7 @@ fun SlideVisibility(
     )
 }
 
+@Suppress("LongParameterList", "FunctionNaming")
 @Composable
 fun SlideHVisibility(
     visible: Boolean,
