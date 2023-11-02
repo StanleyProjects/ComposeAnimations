@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
@@ -62,8 +61,8 @@ internal class SlideVisibilityTest {
     fun defaultAutoAdvanceTest() {
         val animatedContent = "animatedContent"
         val switcher = "switcher"
-        val duration = .5.seconds
-        val delay = .1.seconds
+        val duration = .6.seconds
+        val delay = .3.seconds
         val easing = Ease
         val getOffset: (fullSize: IntSize) -> IntOffset = { IntOffset(x = it.width, y = 0) }
         rule.setContent {
@@ -87,5 +86,53 @@ internal class SlideVisibilityTest {
         rule.onNodeWithTag(animatedContent).assertIsDisplayed()
         rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
         rule.onNodeWithTag(switcher).performClick()
+    }
+
+    @Test
+    fun defaultTest() {
+        val animatedContainer = "animatedContainer"
+        val animatedContent = "animatedContent"
+        val switcher = "switcher"
+        val inDuration = .6.seconds
+        val inDelay = .3.seconds
+        val outDuration = .8.seconds
+        val outDelay = .4.seconds
+        val easing = Ease
+        val getOffset: (fullSize: IntSize) -> IntOffset = { IntOffset(x = it.width, y = 0) }
+        rule.setContent {
+            Content(switcherTag = switcher) { visible: Boolean ->
+                SlideVisibility(
+                    visible = visible,
+                    modifier = Modifier.testTag(animatedContainer),
+                    inDuration = inDuration,
+                    inDelay = inDelay,
+                    inEasing = easing,
+                    initialOffset = getOffset,
+                    outDuration = outDuration,
+                    outDelay = outDelay,
+                    outEasing = easing,
+                    targetOffset = getOffset,
+                ) {
+                    AnimatedContent(testTag = animatedContent)
+                }
+            }
+        }
+        rule.assertAnimation(
+            containerTag = animatedContainer,
+            contentTag = animatedContent,
+            performStartToFinish = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            performFinishToStart = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            inDuration = inDuration,
+            inDelay = inDelay,
+            outDuration = outDuration,
+            outDelay = outDelay,
+            onContentReady = {
+                rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
+            },
+        )
     }
 }

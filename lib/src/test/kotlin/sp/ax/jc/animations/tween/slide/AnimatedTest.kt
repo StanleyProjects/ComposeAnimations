@@ -298,4 +298,33 @@ internal class AnimatedTest {
             delay = delay,
         )
     }
+
+    @Test
+    fun fooTest() {
+        val animatedContainer = "animatedContainer"
+        val animatedContent = "animatedContent"
+        val switcher = "switcher"
+        rule.mainClock.autoAdvance = false
+        val inDuration = 1.seconds
+        val inDelay = 2.seconds
+        rule.setContent {
+            Content(switcherTag = switcher) { visible: Boolean ->
+                SlideHVisibility(
+                    visible = visible,
+                    modifier = Modifier.testTag(animatedContainer),
+                    duration = inDuration,
+                    delay = inDelay,
+                ) {
+                    AnimatedContent(testTag = animatedContent)
+                }
+            }
+        }
+        assertAnimation(
+            containerTag = animatedContainer,
+            contentTag = animatedContent,
+            switcherTag = switcher,
+            duration = inDuration,
+            delay = inDelay,
+        )
+    }
 }
