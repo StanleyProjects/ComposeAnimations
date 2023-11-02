@@ -157,7 +157,7 @@ internal class SlideHVisibilityTest : AnimatedTest() {
                     duration = duration,
                     delay = delay,
                     easing = easing,
-                )
+                ),
             ) {
                 Content(switcherTag = switcher) { visible: Boolean ->
                     SlideHVisibility(visible = visible) {
@@ -229,7 +229,7 @@ internal class SlideHVisibilityTest : AnimatedTest() {
             },
             offsetXRangeInTheMiddleTarget = {
                 0f to it.width.toFloat()
-            }
+            },
         )
     }
 
@@ -246,7 +246,7 @@ internal class SlideHVisibilityTest : AnimatedTest() {
                 LocalSlideHStyle provides SlideStyle.Horizontal(
                     initialOffsetX = initialOffsetX,
                     targetOffsetX = targetOffsetX,
-                )
+                ),
             ) {
                 Content(switcherTag = switcher) { visible: Boolean ->
                     SlideHVisibility(visible = visible) {
@@ -281,7 +281,7 @@ internal class SlideHVisibilityTest : AnimatedTest() {
             },
             offsetXRangeInTheMiddleTarget = {
                 0f to it.width.toFloat()
-            }
+            },
         )
     }
 }
