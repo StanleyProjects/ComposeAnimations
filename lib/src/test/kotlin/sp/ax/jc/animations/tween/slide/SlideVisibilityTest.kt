@@ -90,7 +90,6 @@ internal class SlideVisibilityTest {
 
     @Test
     fun defaultTest() {
-        val animatedContainer = "animatedContainer"
         val animatedContent = "animatedContent"
         val switcher = "switcher"
         val inDuration = .6.seconds
@@ -103,7 +102,6 @@ internal class SlideVisibilityTest {
             Content(switcherTag = switcher) { visible: Boolean ->
                 SlideVisibility(
                     visible = visible,
-                    modifier = Modifier.testTag(animatedContainer),
                     inDuration = inDuration,
                     inDelay = inDelay,
                     inEasing = easing,
@@ -118,7 +116,53 @@ internal class SlideVisibilityTest {
             }
         }
         rule.assertAnimation(
-            containerTag = animatedContainer,
+            contentTag = animatedContent,
+            performStartToFinish = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            performFinishToStart = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            inDuration = inDuration,
+            inDelay = inDelay,
+            outDuration = outDuration,
+            outDelay = outDelay,
+            onContentReady = {
+                rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
+            },
+        )
+    }
+
+    @Test
+    fun labelTest() {
+        val animatedContent = "animatedContent"
+        val switcher = "switcher"
+        val label = "label"
+        val inDuration = .6.seconds
+        val inDelay = .3.seconds
+        val outDuration = .8.seconds
+        val outDelay = .4.seconds
+        val easing = Ease
+        val getOffset: (fullSize: IntSize) -> IntOffset = { IntOffset(x = it.width, y = 0) }
+        rule.setContent {
+            Content(switcherTag = switcher) { visible: Boolean ->
+                SlideVisibility(
+                    visible = visible,
+                    label = label,
+                    inDuration = inDuration,
+                    inDelay = inDelay,
+                    inEasing = easing,
+                    initialOffset = getOffset,
+                    outDuration = outDuration,
+                    outDelay = outDelay,
+                    outEasing = easing,
+                    targetOffset = getOffset,
+                ) {
+                    AnimatedContent(testTag = animatedContent)
+                }
+            }
+        }
+        rule.assertAnimation(
             contentTag = animatedContent,
             performStartToFinish = {
                 rule.onNodeWithTag(switcher).performClick()

@@ -32,7 +32,6 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import sp.ax.jc.animations.style.LocalTweenStyle
 import sp.ax.jc.animations.style.TweenStyle
-import sp.ax.jc.animations.tween.slide.util.compose.assertAnimation
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -81,9 +80,7 @@ internal class AnimatedTest {
         duration: Duration = AnimationConstants.DefaultDurationMillis.milliseconds,
         delay: Duration = Duration.ZERO,
     ) {
-        assertAnimation(
-            provider = rule,
-            mainClock = rule.mainClock,
+        rule.assertAnimation(
             containerTag = containerTag,
             contentTag = contentTag,
             performStartToFinish = {
@@ -92,8 +89,10 @@ internal class AnimatedTest {
             performFinishToStart = {
                 rule.onNodeWithTag(switcherTag).performClick()
             },
-            duration = duration,
-            delay = delay,
+            inDuration = duration,
+            inDelay = delay,
+            outDuration = duration,
+            outDelay = delay,
             onContentReady = {
                 rule.onNodeWithTag(contentTag).assertTextEquals(contentTag)
             },
@@ -242,9 +241,9 @@ internal class AnimatedTest {
                 }
             }
         }
-        assertAnimation(
-            provider = rule,
-            mainClock = rule.mainClock,
+        val duration = AnimationConstants.DefaultDurationMillis.milliseconds
+        val delay = Duration.ZERO
+        rule.assertAnimation(
             containerTag = animatedContainer,
             contentTag = animatedContent,
             performStartToFinish = {
@@ -253,8 +252,10 @@ internal class AnimatedTest {
             performFinishToStart = {
                 rule.onNodeWithTag(switcher).performClick()
             },
-            duration = AnimationConstants.DefaultDurationMillis.milliseconds,
-            delay = Duration.ZERO,
+            inDuration = duration,
+            inDelay = delay,
+            outDuration = duration,
+            outDelay = delay,
             expectedOffsetOnInitial = {
                 Offset(x = -it.width.toFloat(), y = 0f)
             },
