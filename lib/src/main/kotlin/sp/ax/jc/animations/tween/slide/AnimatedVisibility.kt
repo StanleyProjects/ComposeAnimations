@@ -12,10 +12,10 @@ import sp.ax.jc.animations.style.LocalTweenStyle
 import kotlin.time.Duration
 
 @Composable
-fun Slide(
+fun SlideVisibility(
     visible: Boolean,
     modifier: Modifier = Modifier,
-    label: String = "Slide",
+    label: String = "SlideVisibility",
     inDuration: Duration,
     inDelay: Duration,
     inEasing: Easing,
@@ -47,10 +47,10 @@ fun Slide(
 }
 
 @Composable
-fun Slide(
+fun SlideVisibility(
     visible: Boolean,
     modifier: Modifier = Modifier,
-    label: String = "Slide",
+    label: String = "SlideVisibility",
     duration: Duration,
     delay: Duration,
     easing: Easing,
@@ -58,7 +58,7 @@ fun Slide(
     targetOffset: (fullSize: IntSize) -> IntOffset,
     content: @Composable AnimatedVisibilityScope.() -> Unit,
 ) {
-    Slide(
+    SlideVisibility(
         visible = visible,
         modifier = modifier,
         label = label,
@@ -75,10 +75,10 @@ fun Slide(
 }
 
 @Composable
-fun SlideHorizontally(
+fun SlideHVisibility(
     visible: Boolean,
     modifier: Modifier = Modifier,
-    label: String = "SlideHorizontally",
+    label: String = "SlideHVisibility",
     duration: Duration = LocalTweenStyle.current.duration,
     delay: Duration = LocalTweenStyle.current.delay,
     easing: Easing = LocalTweenStyle.current.easing,
@@ -86,7 +86,7 @@ fun SlideHorizontally(
     targetOffsetX: (fullWidth: Int) -> Int = LocalSlideHStyle.current.targetOffsetX,
     content: @Composable AnimatedVisibilityScope.() -> Unit,
 ) {
-    Slide(
+    SlideVisibility(
         visible = visible,
         modifier = modifier,
         label = label,

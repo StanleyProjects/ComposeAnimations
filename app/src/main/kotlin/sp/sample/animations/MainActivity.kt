@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
-import sp.ax.jc.animations.tween.slide.SlideHorizontally
+import sp.ax.jc.animations.tween.slide.SlideHVisibility
 
 internal class MainActivity : AppCompatActivity() {
     override fun onCreate(inState: Bundle?) {
@@ -44,7 +44,7 @@ internal class MainActivity : AppCompatActivity() {
                         .wrapContentSize(),
                     text = if (visibleState.value) "hide" else "show",
                 )
-                SlideHorizontally(
+                SlideHVisibility(
                     visible = visibleState.value,
                     modifier = Modifier.align(Alignment.Center),
                 ) {
