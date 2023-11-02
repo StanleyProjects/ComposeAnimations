@@ -1,7 +1,7 @@
 package sp.ax.jc.animations.tween.slide
 
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
+import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.ComposeTestRule
@@ -13,48 +13,40 @@ import sp.ax.jc.animations.util.advanceTimeBy
 import sp.ax.jc.animations.util.requireParent
 import kotlin.time.Duration
 
-private fun SemanticsNodeInteractionsProvider.assertAnimationBegin(
-    contentTag: String,
+private fun SemanticsNodeInteraction.assertAnimationBegin(
     expectedOffset: (parentSize: IntSize) -> Offset,
 ) {
-    onNodeWithTag(contentTag).also { node ->
-        node.assertExists()
-        node.assertIsNotDisplayed()
-        val sn = node.fetchSemanticsNode()
-        assertEquals(expectedOffset(sn.requireParent().size), sn.positionInRoot)
-    }
+    val sn = assertExists()
+        .assertIsNotDisplayed()
+        .fetchSemanticsNode()
+    assertEquals(expectedOffset(sn.requireParent().size), sn.positionInRoot)
 }
 
-private fun SemanticsNodeInteractionsProvider.assertAnimationInTheMiddle(
-    contentTag: String,
+private fun SemanticsNodeInteraction.assertAnimationInTheMiddle(
     offsetXRange: (parentSize: IntSize) -> Pair<Float, Float>,
 ) {
-    onNodeWithTag(contentTag).also { node ->
-        node.assertExists()
-        node.assertIsNotDisplayed()
-        val sn = node.fetchSemanticsNode()
-        val (xMin, xMax) = offsetXRange(sn.requireParent().size)
-        val message = "Node.x = ${sn.positionInRoot.x}, but range is $xMin..$xMax"
-        assertTrue(message, sn.positionInRoot.x > xMin)
-        assertTrue(message, sn.positionInRoot.x < xMax)
-    }
+    val sn = assertExists()
+        .assertIsNotDisplayed()
+        .fetchSemanticsNode()
+    val (xMin, xMax) = offsetXRange(sn.requireParent().size)
+    val message = "Node.x = ${sn.positionInRoot.x}, but range is $xMin..$xMax"
+    assertTrue(message, sn.positionInRoot.x > xMin)
+    assertTrue(message, sn.positionInRoot.x < xMax)
 }
 
-private fun SemanticsNodeInteractionsProvider.assertAnimationFinish(
-    contentTag: String,
+private fun SemanticsNodeInteraction.assertAnimationFinish(
     expectedOffset: (parentSize: IntSize) -> Offset = { Offset.Zero },
 ) {
-    onNodeWithTag(contentTag).also { node ->
-        node.assertExists()
-        node.assertIsDisplayed()
-        val sn = node.fetchSemanticsNode()
-        assertEquals(expectedOffset(sn.requireParent().size), sn.positionInRoot)
-    }
+    val sn = assertExists()
+        .assertIsDisplayed()
+        .fetchSemanticsNode()
+    assertEquals(expectedOffset(sn.requireParent().size), sn.positionInRoot)
 }
 
 private val DEFAULT_GET_EXPECTED_OFFSET: (parentSize: IntSize) -> Offset = { Offset(x = it.width.toFloat(), y = 0f) }
 private val DEFAULT_GET_OFFSET_X_RANGE: (parentSize: IntSize) -> Pair<Float, Float> = { 0f to it.width.toFloat() }
 
+@Suppress("LongParameterList")
 internal fun ComposeTestRule.assertAnimation(
     containerTag: String,
     contentTag: String,
@@ -76,39 +68,28 @@ internal fun ComposeTestRule.assertAnimation(
     performStartToFinish()
     mainClock.advanceTimeByFrame()
     onNodeWithTag(containerTag).assertIsDisplayed()
-    assertAnimationBegin(
-        contentTag = contentTag,
-        expectedOffset = expectedOffsetOnInitial,
-    )
+    onNodeWithTag(contentTag).assertAnimationBegin(expectedOffset = expectedOffsetOnInitial)
     mainClock.advanceTimeBy(inDelay)
     mainClock.advanceTimeBy(inDuration.div(2))
     onNodeWithTag(containerTag).assertIsDisplayed()
-    assertAnimationInTheMiddle(
-        contentTag = contentTag,
-        offsetXRange = offsetXRangeInTheMiddleInitial,
-    )
+    onNodeWithTag(contentTag).assertAnimationInTheMiddle(offsetXRange = offsetXRangeInTheMiddleInitial)
     mainClock.advanceTimeBy(inDuration.div(2))
     onNodeWithTag(containerTag).assertIsDisplayed()
-    assertAnimationFinish(contentTag = contentTag)
+    onNodeWithTag(contentTag).assertAnimationFinish()
     onContentReady()
     performFinishToStart()
     mainClock.advanceTimeBy(outDelay)
     mainClock.advanceTimeBy(outDuration.div(2))
     onNodeWithTag(containerTag).assertIsDisplayed()
-    assertAnimationInTheMiddle(
-        contentTag = contentTag,
-        offsetXRange = offsetXRangeInTheMiddleTarget,
-    )
+    onNodeWithTag(contentTag).assertAnimationInTheMiddle(offsetXRange = offsetXRangeInTheMiddleTarget)
     mainClock.advanceTimeBy(outDuration.div(2))
     onNodeWithTag(containerTag).assertIsDisplayed()
-    assertAnimationBegin(
-        contentTag = contentTag,
-        expectedOffset = expectedOffsetOnTarget,
-    )
+    onNodeWithTag(contentTag).assertAnimationBegin(expectedOffset = expectedOffsetOnTarget)
     mainClock.autoAdvance = true
     onNodeWithTag(containerTag).assertDoesNotExist()
 }
 
+@Suppress("LongParameterList")
 internal fun ComposeTestRule.assertAnimation(
     contentTag: String,
     performStartToFinish: () -> Unit,
@@ -127,31 +108,19 @@ internal fun ComposeTestRule.assertAnimation(
     onNodeWithTag(contentTag).assertDoesNotExist()
     performStartToFinish()
     mainClock.advanceTimeByFrame()
-    assertAnimationBegin(
-        contentTag = contentTag,
-        expectedOffset = expectedOffsetOnInitial,
-    )
+    onNodeWithTag(contentTag).assertAnimationBegin(expectedOffset = expectedOffsetOnInitial)
     mainClock.advanceTimeBy(inDelay)
     mainClock.advanceTimeBy(inDuration.div(2))
-    assertAnimationInTheMiddle(
-        contentTag = contentTag,
-        offsetXRange = offsetXRangeInTheMiddleInitial,
-    )
+    onNodeWithTag(contentTag).assertAnimationInTheMiddle(offsetXRange = offsetXRangeInTheMiddleInitial)
     mainClock.advanceTimeBy(inDuration.div(2))
-    assertAnimationFinish(contentTag = contentTag)
+    onNodeWithTag(contentTag).assertAnimationFinish()
     onContentReady()
     performFinishToStart()
     mainClock.advanceTimeBy(outDelay)
     mainClock.advanceTimeBy(outDuration.div(2))
-    assertAnimationInTheMiddle(
-        contentTag = contentTag,
-        offsetXRange = offsetXRangeInTheMiddleTarget,
-    )
+    onNodeWithTag(contentTag).assertAnimationInTheMiddle(offsetXRange = offsetXRangeInTheMiddleTarget)
     mainClock.advanceTimeBy(outDuration.div(2))
-    assertAnimationBegin(
-        contentTag = contentTag,
-        expectedOffset = expectedOffsetOnTarget,
-    )
+    onNodeWithTag(contentTag).assertAnimationBegin(expectedOffset = expectedOffsetOnTarget)
     mainClock.autoAdvance = true
     onNodeWithTag(contentTag).assertDoesNotExist()
 }

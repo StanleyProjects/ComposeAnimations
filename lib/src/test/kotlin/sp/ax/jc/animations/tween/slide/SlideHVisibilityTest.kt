@@ -21,6 +21,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
+@Suppress("StringLiteralDuplication", "MagicNumber")
 @RunWith(RobolectricTestRunner::class)
 internal class SlideHVisibilityTest : AnimatedTest() {
     @Test
@@ -35,8 +36,9 @@ internal class SlideHVisibilityTest : AnimatedTest() {
             }
         }
         rule.onNodeWithTag(switcher).performClick()
-        rule.onNodeWithTag(animatedContent).assertIsDisplayed()
-        rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
+        rule.onNodeWithTag(animatedContent)
+            .assertIsDisplayed()
+            .assertTextEquals(animatedContent)
         rule.onNodeWithTag(switcher).performClick()
     }
 
@@ -233,6 +235,7 @@ internal class SlideHVisibilityTest : AnimatedTest() {
         )
     }
 
+    @Suppress("FunctionMaxLength")
     @Test
     fun toRightToRightCompositionLocalTest() {
         val animatedContent = "animatedContent"

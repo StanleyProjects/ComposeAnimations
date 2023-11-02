@@ -13,10 +13,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.junit4.createComposeRule
 import org.junit.Rule
 
-internal abstract class AnimatedTest {
+internal open class AnimatedTest {
     @get:Rule
     val rule = createComposeRule()
 
+    @Suppress("FunctionNaming")
     @Composable
     protected fun Content(switcherTag: String, composable: @Composable (visible: Boolean) -> Unit) {
         check(switcherTag.isNotEmpty())
@@ -34,6 +35,7 @@ internal abstract class AnimatedTest {
         }
     }
 
+    @Suppress("FunctionNaming")
     @Composable
     protected fun AnimatedContent(testTag: String) {
         check(testTag.isNotEmpty())

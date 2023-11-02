@@ -14,6 +14,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import kotlin.time.Duration.Companion.seconds
 
+@Suppress("StringLiteralDuplication", "MagicNumber")
 @RunWith(RobolectricTestRunner::class)
 internal class SlideVisibilityTest : AnimatedTest() {
     @Test

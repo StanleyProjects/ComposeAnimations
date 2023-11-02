@@ -8,6 +8,7 @@ potential-bugs:
     ignoreFunctionCall: [
       androidx.compose.ui.test.assert,
       androidx.compose.ui.test.assertIsDisplayed,
+      androidx.compose.ui.test.assertTextEquals,
       androidx.compose.ui.test.performClick,
       androidx.compose.ui.test.performTouchInput,
       androidx.test.espresso.ViewInteraction.perform,
