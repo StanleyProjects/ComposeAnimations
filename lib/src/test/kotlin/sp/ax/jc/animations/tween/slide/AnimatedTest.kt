@@ -77,7 +77,7 @@ internal class AnimatedTest {
         containerTag: String,
         contentTag: String,
         switcherTag: String,
-        duration: Duration,
+        duration: Duration = AnimationConstants.DefaultDurationMillis.milliseconds,
     ) {
         assertAnimation(
             provider = rule,
@@ -120,7 +120,6 @@ internal class AnimatedTest {
         val animatedContent = "animatedContent"
         val switcher = "switcher"
         rule.mainClock.autoAdvance = false
-        val duration = AnimationConstants.DefaultDurationMillis.milliseconds
         rule.setContent {
             Content(switcherTag = switcher) { visible: Boolean ->
                 SlideHVisibility(
@@ -135,7 +134,6 @@ internal class AnimatedTest {
             containerTag = animatedContainer,
             contentTag = animatedContent,
             switcherTag = switcher,
-            duration = duration,
         )
     }
 
@@ -195,6 +193,31 @@ internal class AnimatedTest {
             contentTag = animatedContent,
             switcherTag = switcher,
             duration = duration,
+        )
+    }
+
+    @Test
+    fun SlideHVisibilityCustomOffsetTest() {
+        val animatedContainer = "animatedContainer"
+        val animatedContent = "animatedContent"
+        val switcher = "switcher"
+        rule.mainClock.autoAdvance = false
+        rule.setContent {
+            Content(switcherTag = switcher) { visible: Boolean ->
+                SlideHVisibility(
+                    visible = visible,
+                    modifier = Modifier.testTag(animatedContainer),
+                    initialOffsetX = { fullWidth: Int -> fullWidth },
+                    targetOffsetX = { fullWidth: Int -> fullWidth },
+                ) {
+                    AnimatedContent(testTag = animatedContent)
+                }
+            }
+        }
+        assertAnimation(
+            containerTag = animatedContainer,
+            contentTag = animatedContent,
+            switcherTag = switcher,
         )
     }
 }
