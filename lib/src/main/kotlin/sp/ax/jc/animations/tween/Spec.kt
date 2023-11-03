@@ -8,6 +8,7 @@ import kotlin.time.Duration
 /**
  * Creates a [TweenSpec] configured with the given duration, delay and easing curve.
  *
+ * @param T a type for the [TweenSpec]
  * @param duration duration of the animation spec
  * @param delay the amount of time that animation waits before starting
  * @param easing the easing curve that will be used to interpolate between start and end
