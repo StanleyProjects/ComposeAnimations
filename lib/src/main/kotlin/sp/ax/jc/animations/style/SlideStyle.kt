@@ -7,8 +7,8 @@ import androidx.compose.runtime.staticCompositionLocalOf
 sealed interface SlideStyle {
     /**
      * Stores values to describe how to do enter and exit transitions horizontally.
-     * @param initialOffsetX a lambda that takes the full width of the content in pixels and returns the initial x-coordinate
-     * @param targetOffsetX a lambda that takes the full width of the content and returns the target x-coordinate
+     * @property initialOffsetX a lambda that takes the full width of the content in pixels and returns the initial x-coordinate
+     * @property targetOffsetX a lambda that takes the full width of the content and returns the target x-coordinate
      * @author [Stanley Wintergreen](https://github.com/kepocnhh)
      * @since 0.0.1
      */

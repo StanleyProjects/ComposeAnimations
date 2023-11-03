@@ -10,9 +10,9 @@ import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Stores values to describe how to animate with [TweenSpec][androidx.compose.animation.core.TweenSpec].
- * @param duration duration of the animation spec
- * @param delay the amount of time that animation waits before starting
- * @param easing the easing curve that will be used to interpolate between start and end
+ * @property duration duration of the animation spec
+ * @property delay the amount of time that animation waits before starting
+ * @property easing the easing curve that will be used to interpolate between start and end
  * @author [Stanley Wintergreen](https://github.com/kepocnhh)
  * @since 0.0.1
  */
