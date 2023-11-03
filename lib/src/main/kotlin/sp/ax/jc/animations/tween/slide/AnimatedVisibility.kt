@@ -154,8 +154,8 @@ fun SlideVisibility(
  * @param duration duration of the animation spec. The default value is taken from [LocalTweenStyle].
  * @param delay the amount of time that animation waits before starting. The default value is taken from [LocalTweenStyle].
  * @param easing the easing curve that will be used to interpolate between start and end. The default value is taken from [LocalTweenStyle].
- * @param initialOffsetX a lambda that takes the full width of the content in pixels and returns the. The default value is taken from [LocalSlideHStyle].
- * @param targetOffsetX a lambda that takes the full width of the content and returns the. The default value is taken from [LocalSlideHStyle].
+ * @param initialOffsetX a lambda that takes the full width of the content in pixels and returns the initial x-coordinate. The default value is taken from [LocalSlideHStyle].
+ * @param targetOffsetX a lambda that takes the full width of the content and returns the target x-coordinate. The default value is taken from [LocalSlideHStyle].
  * @author [Stanley Wintergreen](https://github.com/kepocnhh)
  * @since 0.0.1
  * @see LocalTweenStyle
