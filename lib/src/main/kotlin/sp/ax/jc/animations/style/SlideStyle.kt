@@ -3,6 +3,7 @@ package sp.ax.jc.animations.style
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 
+@Suppress("UndocumentedPublicClass")
 sealed interface SlideStyle {
     /**
      * Stores values to describe how to do enter and exit transitions horizontally.
@@ -18,8 +19,12 @@ sealed interface SlideStyle {
     ) : SlideStyle {
         companion object {
             /**
+             * An example of a description of how to show by moving from right to left, and hide by moving from left to right.
+             *
+             * ```
              * Show: [---] -> [--+] -> [-++] -> [+++]
              * Hide: [+++] -> [-++] -> [--+] -> [---]
+             * ```
              */
             val ToLeftToRight = Horizontal(
                 initialOffsetX = { it },
@@ -27,8 +32,12 @@ sealed interface SlideStyle {
             )
 
             /**
+             * An example description of how to show by moving from right to left, and hide by moving from right to left
+             *
+             * ```
              * Show: [---] -> [--+] -> [-++] -> [+++]
              * Hide: [+++] -> [++-] -> [+--] -> [---]
+             * ```
              */
             val ToLeftToLeft = Horizontal(
                 initialOffsetX = { it },
