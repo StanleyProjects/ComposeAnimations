@@ -1,0 +1,30 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:sp.ax.jc.animations.style////PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/index.html
+$dokka.location:sp.ax.jc.animations.style//LocalSlideHStyle/#/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-local-slide-h-style.html
+$dokka.location:sp.ax.jc.animations.style//LocalTweenStyle/#/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-local-tween-style.html
+$dokka.location:sp.ax.jc.animations.style/SlideStyle.Horizontal.Companion///PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-slide-style/-horizontal/-companion/index.html
+$dokka.location:sp.ax.jc.animations.style/SlideStyle.Horizontal.Companion/ToLeftToLeft/#/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-slide-style/-horizontal/-companion/-to-left-to-left.html
+$dokka.location:sp.ax.jc.animations.style/SlideStyle.Horizontal.Companion/ToLeftToRight/#/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-slide-style/-horizontal/-companion/-to-left-to-right.html
+$dokka.location:sp.ax.jc.animations.style/SlideStyle.Horizontal///PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-slide-style/-horizontal/index.html
+$dokka.location:sp.ax.jc.animations.style/SlideStyle.Horizontal/Horizontal/#kotlin.Function1[kotlin.Int,kotlin.Int]#kotlin.Function1[kotlin.Int,kotlin.Int]/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-slide-style/-horizontal/-horizontal.html
+$dokka.location:sp.ax.jc.animations.style/SlideStyle.Horizontal/initialOffsetX/#/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-slide-style/-horizontal/initial-offset-x.html
+$dokka.location:sp.ax.jc.animations.style/SlideStyle.Horizontal/targetOffsetX/#/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-slide-style/-horizontal/target-offset-x.html
+$dokka.location:sp.ax.jc.animations.style/SlideStyle///PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-slide-style/index.html
+$dokka.location:sp.ax.jc.animations.style/TweenStyle///PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-tween-style/index.html
+$dokka.location:sp.ax.jc.animations.style/TweenStyle/TweenStyle/#kotlin.time.Duration#kotlin.time.Duration#androidx.compose.animation.core.Easing/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-tween-style/-tween-style.html
+$dokka.location:sp.ax.jc.animations.style/TweenStyle/delay/#/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-tween-style/delay.html
+$dokka.location:sp.ax.jc.animations.style/TweenStyle/duration/#/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-tween-style/duration.html
+$dokka.location:sp.ax.jc.animations.style/TweenStyle/easing/#/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.style/-tween-style/easing.html
+$dokka.location:sp.ax.jc.animations.tween.slide////PointingToDeclaration/-compose-animations/sp.ax.jc.animations.tween.slide/index.html
+$dokka.location:sp.ax.jc.animations.tween.slide//SlideHVisibility/#kotlin.Boolean#androidx.compose.ui.Modifier#kotlin.String#kotlin.time.Duration#kotlin.time.Duration#androidx.compose.animation.core.Easing#kotlin.Function1[kotlin.Int,kotlin.Int]#kotlin.Function1[kotlin.Int,kotlin.Int]#kotlin.Function1[androidx.compose.animation.AnimatedVisibilityScope,kotlin.Unit]/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.tween.slide/-slide-h-visibility.html
+$dokka.location:sp.ax.jc.animations.tween.slide//SlideVisibility/#kotlin.Boolean#androidx.compose.ui.Modifier#kotlin.String#kotlin.time.Duration#kotlin.time.Duration#androidx.compose.animation.core.Easing#kotlin.Function1[androidx.compose.ui.unit.IntSize,androidx.compose.ui.unit.IntOffset]#kotlin.Function1[androidx.compose.ui.unit.IntSize,androidx.compose.ui.unit.IntOffset]#kotlin.Function1[androidx.compose.animation.AnimatedVisibilityScope,kotlin.Unit]/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.tween.slide/-slide-visibility.html
+$dokka.location:sp.ax.jc.animations.tween.slide//SlideVisibility/#kotlin.Boolean#androidx.compose.ui.Modifier#kotlin.String#kotlin.time.Duration#kotlin.time.Duration#androidx.compose.animation.core.Easing#kotlin.Function1[androidx.compose.ui.unit.IntSize,androidx.compose.ui.unit.IntOffset]#kotlin.time.Duration#kotlin.time.Duration#androidx.compose.animation.core.Easing#kotlin.Function1[androidx.compose.ui.unit.IntSize,androidx.compose.ui.unit.IntOffset]#kotlin.Function1[androidx.compose.animation.AnimatedVisibilityScope,kotlin.Unit]/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.tween.slide/-slide-visibility.html
+$dokka.location:sp.ax.jc.animations.tween.slide//slideIn/#kotlin.time.Duration#kotlin.time.Duration#androidx.compose.animation.core.Easing#kotlin.Function1[androidx.compose.ui.unit.IntSize,androidx.compose.ui.unit.IntOffset]/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.tween.slide/slide-in.html
+$dokka.location:sp.ax.jc.animations.tween.slide//slideOut/#kotlin.time.Duration#kotlin.time.Duration#androidx.compose.animation.core.Easing#kotlin.Function1[androidx.compose.ui.unit.IntSize,androidx.compose.ui.unit.IntOffset]/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.tween.slide/slide-out.html
+$dokka.location:sp.ax.jc.animations.tween////PointingToDeclaration/-compose-animations/sp.ax.jc.animations.tween/index.html
+$dokka.location:sp.ax.jc.animations.tween//tween/#kotlin.time.Duration#kotlin.time.Duration#androidx.compose.animation.core.Easing/PointingToDeclaration/-compose-animations/sp.ax.jc.animations.tween/tween.html
+sp.ax.jc.animations.style
+sp.ax.jc.animations.tween
+sp.ax.jc.animations.tween.slide
+

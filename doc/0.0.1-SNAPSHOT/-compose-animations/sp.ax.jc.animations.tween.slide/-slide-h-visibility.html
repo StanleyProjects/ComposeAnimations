@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SlideHVisibility</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../index.html">
+                            ComposeAnimations
+                    </a>
+            </div>
+            <div class="library-version">
+0.0.1-SNAPSHOT            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":lib:assembleDebugDocumentation/release">androidJvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageIds="ComposeAnimations::sp.ax.jc.animations.tween.slide//SlideHVisibility/#kotlin.Boolean#androidx.compose.ui.Modifier#kotlin.String#kotlin.time.Duration#kotlin.time.Duration#androidx.compose.animation.core.Easing#kotlin.Function1[kotlin.Int,kotlin.Int]#kotlin.Function1[kotlin.Int,kotlin.Int]#kotlin.Function1[androidx.compose.animation.AnimatedVisibilityScope,kotlin.Unit]/PointingToDeclaration//1691706425">
+  <div class="breadcrumbs"><a href="../../index.html">ComposeAnimations</a><span class="delimiter">/</span><a href="index.html">sp.ax.jc.animations.tween.slide</a><span class="delimiter">/</span><span class="current">SlideHVisibility</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Slide</span><wbr></wbr><span><span>HVisibility</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib:assembleDebugDocumentation/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword"></span><span class="token keyword">fun </span><a href="-slide-h-visibility.html"><span class="token function">SlideHVisibility</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">visible<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">label<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">&quot;SlideHVisibility&quot;</span><span class="token punctuation">, </span></span><span class="parameter ">duration<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a><span class="token operator"> = </span>LocalTweenStyle.current.duration<span class="token punctuation">, </span></span><span class="parameter ">delay<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a><span class="token operator"> = </span>LocalTweenStyle.current.delay<span class="token punctuation">, </span></span><span class="parameter ">easing<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/core/Easing.html">Easing</a><span class="token operator"> = </span>LocalTweenStyle.current.easing<span class="token punctuation">, </span></span><span class="parameter ">initialOffsetX<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>fullWidth<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>LocalSlideHStyle.current.initialOffsetX<span class="token punctuation">, </span></span><span class="parameter ">targetOffsetX<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>fullWidth<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>LocalSlideHStyle.current.targetOffsetX<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token keyword"></span><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/AnimatedVisibilityScope.html">AnimatedVisibilityScope</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">The wrapper for the <a href="-slide-visibility.html">SlideVisibility</a> for horizontal transition only.</p><p class="paragraph">Usage:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val visibleState = remember { mutableStateOf(false) }<br>...<br>SlideHVisibility(visible = visibleState.value) {<br>    BasicText(text = &quot;foo&quot;)<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph"><a href="https://github.com/kepocnhh">Stanley Wintergreen</a></p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.0.1</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":lib:assembleDebugDocumentation/release" data-filterable-set=":lib:assembleDebugDocumentation/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>visible</span></span></u></div></span></div><div><div class="title"><p class="paragraph">defines whether the content should be visible</p></div></div></div></div><div class="table-row" data-filterable-current=":lib:assembleDebugDocumentation/release" data-filterable-set=":lib:assembleDebugDocumentation/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>modifier</span></span></u></div></span></div><div><div class="title"><p class="paragraph">modifier for the <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/layout/package-summary.html">Layout</a> created to contain the <a href="-slide-h-visibility.html">content</a></p></div></div></div></div><div class="table-row" data-filterable-current=":lib:assembleDebugDocumentation/release" data-filterable-set=":lib:assembleDebugDocumentation/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>label</span></span></u></div></span></div><div><div class="title"><p class="paragraph">is used to differentiate different transitions</p></div></div></div></div><div class="table-row" data-filterable-current=":lib:assembleDebugDocumentation/release" data-filterable-set=":lib:assembleDebugDocumentation/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>duration</span></span></u></div></span></div><div><div class="title"><p class="paragraph">duration of the animation spec. The default value is taken from <a href="../sp.ax.jc.animations.style/-local-tween-style.html">LocalTweenStyle</a>.</p></div></div></div></div><div class="table-row" data-filterable-current=":lib:assembleDebugDocumentation/release" data-filterable-set=":lib:assembleDebugDocumentation/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>delay</span></span></u></div></span></div><div><div class="title"><p class="paragraph">the amount of time that animation waits before starting. The default value is taken from <a href="../sp.ax.jc.animations.style/-local-tween-style.html">LocalTweenStyle</a>.</p></div></div></div></div><div class="table-row" data-filterable-current=":lib:assembleDebugDocumentation/release" data-filterable-set=":lib:assembleDebugDocumentation/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>easing</span></span></u></div></span></div><div><div class="title"><p class="paragraph">the easing curve that will be used to interpolate between start and end. The default value is taken from <a href="../sp.ax.jc.animations.style/-local-tween-style.html">LocalTweenStyle</a>.</p></div></div></div></div><div class="table-row" data-filterable-current=":lib:assembleDebugDocumentation/release" data-filterable-set=":lib:assembleDebugDocumentation/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>initial</span><wbr></wbr><span>Offset</span><wbr></wbr><span><span>X</span></span></u></div></span></div><div><div class="title"><p class="paragraph">a lambda that takes the full width of the content in pixels and returns the initial x-coordinate. The default value is taken from <a href="../sp.ax.jc.animations.style/-local-slide-h-style.html">LocalSlideHStyle</a>.</p></div></div></div></div><div class="table-row" data-filterable-current=":lib:assembleDebugDocumentation/release" data-filterable-set=":lib:assembleDebugDocumentation/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>target</span><wbr></wbr><span>Offset</span><wbr></wbr><span><span>X</span></span></u></div></span></div><div><div class="title"><p class="paragraph">a lambda that takes the full width of the content and returns the target x-coordinate. The default value is taken from <a href="../sp.ax.jc.animations.style/-local-slide-h-style.html">LocalSlideHStyle</a>.</p></div></div></div></div><div class="table-row" data-filterable-current=":lib:assembleDebugDocumentation/release" data-filterable-set=":lib:assembleDebugDocumentation/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>content</span></span></u></div></span></div><div><div class="title"><p class="paragraph">to appear or disappear based on the value of <a href="-slide-h-visibility.html">visible</a></p></div></div></div></div></div><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":lib:assembleDebugDocumentation/release" data-filterable-set=":lib:assembleDebugDocumentation/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../sp.ax.jc.animations.style/-local-tween-style.html"><span>Local</span><wbr></wbr><span>Tween</span><wbr></wbr><span><span>Style</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":lib:assembleDebugDocumentation/release" data-filterable-set=":lib:assembleDebugDocumentation/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../sp.ax.jc.animations.style/-local-slide-h-style.html"><span>Local</span><wbr></wbr><span>Slide</span><wbr></wbr><span><span>HStyle</span></span></a></div></span></div><div></div></div></div></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
