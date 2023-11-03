@@ -19,10 +19,11 @@ import kotlin.time.Duration
  *     duration = 3.seconds,
  *     delay = 1.seconds,
  *     easing = LinearEasing,
- *     initialOffset = { IntOffset(x = it.width, y = 0) }
+ *     initialOffset = { IntOffset(x = it.width, y = 0) },
  * )
  * ```
  *
+ * Presentation:
  * ```
  *   ^ x-coordinate
  *   |
@@ -70,10 +71,11 @@ fun slideIn(
  *     duration = 3.seconds,
  *     delay = 1.seconds,
  *     easing = LinearEasing,
- *     targetOffset = { IntOffset(x = it.width, y = 0) }
+ *     targetOffset = { IntOffset(x = it.width, y = 0) },
  * )
  * ```
  *
+ * Presentation:
  * ```
  *   ^ x-coordinate
  *   |

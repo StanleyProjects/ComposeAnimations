@@ -11,6 +11,39 @@ import sp.ax.jc.animations.style.LocalSlideHStyle
 import sp.ax.jc.animations.style.LocalTweenStyle
 import kotlin.time.Duration
 
+/**
+ * The wrapper for the [AnimatedVisibility][androidx.compose.animation.AnimatedVisibility] with an `enter` as [slideIn] and `exit` as [slideOut].
+ *
+ * Usage:
+ * ```
+ * val visibleState = remember { mutableStateOf(false) }
+ * ...
+ * SlideVisibility(
+ *     visible = visibleState.value,
+ *     inDuration = 3.seconds,
+ *     inDelay = Duration.ZERO,
+ *     inEasing = LinearEasing,
+ *     initialOffset = { IntOffset(x = it.width, y = 0) },
+ *     outDuration = 3.seconds,
+ *     outDelay = Duration.ZERO,
+ *     outEasing = LinearEasing,
+ *     targetOffset = { IntOffset(x = it.width, y = 0) },
+ * ) {
+ *     BasicText(text = "foo")
+ * }
+ * ```
+ *
+ * Presentation:
+ * ```
+ * visibleState.value = true
+ * [---] -> [--+] -> [-++] -> [+++]
+ * visibleState.value = false
+ * [+++] -> [-++] -> [--+] -> [---]
+ * ```
+ *
+ * @author [Stanley Wintergreen](https://github.com/kepocnhh)
+ * @since 0.0.1
+ */
 @Suppress("LongParameterList", "FunctionNaming")
 @Composable
 fun SlideVisibility(
@@ -47,6 +80,36 @@ fun SlideVisibility(
     )
 }
 
+/**
+ * The wrapper for the [SlideVisibility] with one set of parameters for both in and out.
+ *
+ * Usage:
+ * ```
+ * val visibleState = remember { mutableStateOf(false) }
+ * ...
+ * SlideVisibility(
+ *     visible = visibleState.value,
+ *     duration = 3.seconds,
+ *     delay = Duration.ZERO,
+ *     easing = LinearEasing,
+ *     initialOffset = { IntOffset(x = it.width, y = 0) },
+ *     targetOffset = { IntOffset(x = it.width, y = 0) },
+ * ) {
+ *     BasicText(text = "foo")
+ * }
+ * ```
+ *
+ * Presentation:
+ * ```
+ * visibleState.value = true
+ * [---] -> [--+] -> [-++] -> [+++]
+ * visibleState.value = false
+ * [+++] -> [-++] -> [--+] -> [---]
+ * ```
+ *
+ * @author [Stanley Wintergreen](https://github.com/kepocnhh)
+ * @since 0.0.1
+ */
 @Suppress("LongParameterList", "FunctionNaming")
 @Composable
 fun SlideVisibility(
@@ -76,6 +139,28 @@ fun SlideVisibility(
     )
 }
 
+/**
+ * The wrapper for the [SlideVisibility] for horizontal transition only.
+ *
+ * Usage:
+ * ```
+ * val visibleState = remember { mutableStateOf(false) }
+ * ...
+ * SlideHVisibility(visible = visibleState.value) {
+ *     BasicText(text = "foo")
+ * }
+ * ```
+ *
+ * @param duration duration of the animation spec. The default value is taken from [LocalTweenStyle].
+ * @param delay the amount of time that animation waits before starting. The default value is taken from [LocalTweenStyle].
+ * @param easing the easing curve that will be used to interpolate between start and end. The default value is taken from [LocalTweenStyle].
+ * @param initialOffsetX a lambda that takes the full width of the content in pixels and returns the. The default value is taken from [LocalSlideHStyle].
+ * @param targetOffsetX a lambda that takes the full width of the content and returns the. The default value is taken from [LocalSlideHStyle].
+ * @author [Stanley Wintergreen](https://github.com/kepocnhh)
+ * @since 0.0.1
+ * @see LocalTweenStyle
+ * @see LocalSlideHStyle
+ */
 @Suppress("LongParameterList", "FunctionNaming")
 @Composable
 fun SlideHVisibility(
