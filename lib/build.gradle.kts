@@ -161,11 +161,16 @@ fun checkCodeQuality(variant: BaseVariant) {
             when (type) {
                 "main" -> config.setFrom(configs)
                 "test" -> {
-                    val test = rootDir.resolve("buildSrc/src/main/resources/detekt/config/android/test.yml")
-                        .existing()
-                        .file()
-                        .filled()
-                    config.setFrom(configs + test)
+                    val tests = setOf(
+                        "test",
+                        "android/test",
+                    ).map { config ->
+                        rootDir.resolve("buildSrc/src/main/resources/detekt/config/$config.yml")
+                            .existing()
+                            .file()
+                            .filled()
+                    }
+                    config.setFrom(configs + tests)
                 }
                 else -> error("Type \"$type\" is not supported!")
             }

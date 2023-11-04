@@ -13,6 +13,7 @@ import org.robolectric.RobolectricTestRunner
 import sp.ax.jc.animations.util.AnimatedTest
 import kotlin.time.Duration.Companion.seconds
 
+@Suppress("StringLiteralDuplication", "MagicNumber")
 @RunWith(RobolectricTestRunner::class)
 internal class FadeVisibilityInOutStyleTest : AnimatedTest() {
     @Test

@@ -9,6 +9,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import sp.ax.jc.animations.util.advanceTimeBy
 import kotlin.time.Duration
 
+@Suppress("LongParameterList")
 internal fun ComposeTestRule.assertAnimation(
     contentTag: String,
     performStartToFinish: () -> Unit,
@@ -45,6 +46,7 @@ internal fun ComposeTestRule.assertAnimation(
     onNodeWithTag(contentTag).assertDoesNotExist()
 }
 
+@Suppress("LongParameterList")
 internal fun ComposeTestRule.assertAnimation(
     containerTag: String,
     contentTag: String,
