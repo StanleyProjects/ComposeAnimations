@@ -1,6 +1,8 @@
 package sp.ax.jc.animations.tween.fade
 
 import androidx.compose.animation.core.Ease
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.onNodeWithTag
@@ -20,8 +22,7 @@ internal class FadeVisibilityInOutStyleTest : AnimatedTest() {
         val duration = .6.seconds
         val delay = .3.seconds
         val easing = Ease
-        val initialAlpha = .1f
-        val targetAlpha = .9f
+        val alpha = 0f
         rule.setContent {
             Content(switcherTag = switcher) { visible: Boolean ->
                 FadeVisibility(
@@ -29,11 +30,11 @@ internal class FadeVisibilityInOutStyleTest : AnimatedTest() {
                     inDuration = duration,
                     inDelay = delay,
                     inEasing = easing,
-                    initialAlpha = initialAlpha,
+                    initialAlpha = alpha,
                     outDuration = duration,
                     outDelay = delay,
                     outEasing = easing,
-                    targetAlpha = targetAlpha,
+                    targetAlpha = alpha,
                 ) {
                     AnimatedContent(testTag = animatedContent)
                 }
@@ -45,5 +46,100 @@ internal class FadeVisibilityInOutStyleTest : AnimatedTest() {
         rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
         rule.onNodeWithTag(switcher).performClick()
         rule.onNodeWithTag(animatedContent).assertDoesNotExist()
+    }
+
+    @Test
+    fun defaultTest() {
+        val animatedContent = "animatedContent"
+        val switcher = "switcher"
+        val inDuration = .6.seconds
+        val inDelay = .3.seconds
+        val outDuration = .8.seconds
+        val outDelay = .4.seconds
+        val easing = Ease
+        val initialAlpha = .1f
+        val targetAlpha = .9f
+        rule.setContent {
+            Content(switcherTag = switcher) { visible: Boolean ->
+                FadeVisibility(
+                    visible = visible,
+                    inDuration = inDuration,
+                    inDelay = inDelay,
+                    inEasing = easing,
+                    initialAlpha = initialAlpha,
+                    outDuration = outDuration,
+                    outDelay = outDelay,
+                    outEasing = easing,
+                    targetAlpha = targetAlpha,
+                ) {
+                    AnimatedContent(testTag = animatedContent)
+                }
+            }
+        }
+        rule.assertAnimation(
+            contentTag = animatedContent,
+            performStartToFinish = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            inDelay = inDelay,
+            inDuration = inDuration,
+            onContentReady = {
+                rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
+            },
+            performFinishToStart = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            outDelay = outDelay,
+            outDuration = outDuration,
+        )
+    }
+
+    @Test
+    fun modifierTest() {
+        val animatedContainer = "animatedContainer"
+        val animatedContent = "animatedContent"
+        val switcher = "switcher"
+        val inDuration = .6.seconds
+        val inDelay = .3.seconds
+        val outDuration = .8.seconds
+        val outDelay = .4.seconds
+        val easing = Ease
+        val initialAlpha = .1f
+        val targetAlpha = .9f
+        rule.setContent {
+            Content(switcherTag = switcher) { visible: Boolean ->
+                FadeVisibility(
+                    visible = visible,
+                    modifier = Modifier.testTag(animatedContainer),
+                    inDuration = inDuration,
+                    inDelay = inDelay,
+                    inEasing = easing,
+                    initialAlpha = initialAlpha,
+                    outDuration = outDuration,
+                    outDelay = outDelay,
+                    outEasing = easing,
+                    targetAlpha = targetAlpha,
+                ) {
+                    AnimatedContent(testTag = animatedContent)
+                }
+            }
+        }
+        rule.assertAnimation(
+            containerTag = animatedContainer,
+            contentTag = animatedContent,
+            performStartToFinish = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            inDelay = inDelay,
+            inDuration = inDuration,
+            onContentReady = {
+                rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
+            },
+            performFinishToStart = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            outDelay = outDelay,
+            outDuration = outDuration,
+        )
     }
 }
