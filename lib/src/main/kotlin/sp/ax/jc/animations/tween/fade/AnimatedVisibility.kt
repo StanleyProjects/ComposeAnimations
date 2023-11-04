@@ -9,6 +9,7 @@ import sp.ax.jc.animations.style.LocalFadeStyle
 import sp.ax.jc.animations.style.LocalTweenStyle
 import kotlin.time.Duration
 
+@Suppress("LongParameterList", "FunctionNaming")
 @Composable
 fun FadeVisibility(
     visible: Boolean,
@@ -44,6 +45,7 @@ fun FadeVisibility(
     )
 }
 
+@Suppress("LongParameterList", "FunctionNaming")
 @Composable
 fun FadeVisibility(
     visible: Boolean,
