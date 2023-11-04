@@ -73,6 +73,43 @@ internal class FadeVisibilityTest : AnimatedTest() {
     }
 
     @Test
+    fun labelTest() {
+        val animatedContent = "animatedContent"
+        val switcher = "switcher"
+        val label = "label"
+        val duration = AnimationConstants.DefaultDurationMillis.milliseconds
+        val delay = Duration.ZERO
+        rule.setContent {
+            Content(switcherTag = switcher) { visible: Boolean ->
+                FadeVisibility(
+                    visible = visible,
+                    label = label,
+                    duration = duration,
+                    delay = delay,
+                ) {
+                    AnimatedContent(testTag = animatedContent)
+                }
+            }
+        }
+        rule.assertAnimation(
+            contentTag = animatedContent,
+            performStartToFinish = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            performFinishToStart = {
+                rule.onNodeWithTag(switcher).performClick()
+            },
+            inDuration = duration,
+            inDelay = delay,
+            outDuration = duration,
+            outDelay = delay,
+            onContentReady = {
+                rule.onNodeWithTag(animatedContent).assertTextEquals(animatedContent)
+            },
+        )
+    }
+
+    @Test
     fun modifierTest() {
         val animatedContainer = "animatedContainer"
         val animatedContent = "animatedContent"
