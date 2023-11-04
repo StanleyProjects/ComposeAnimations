@@ -9,6 +9,39 @@ import sp.ax.jc.animations.style.LocalFadeStyle
 import sp.ax.jc.animations.style.LocalTweenStyle
 import kotlin.time.Duration
 
+/**
+ * The wrapper for the [AnimatedVisibility][androidx.compose.animation.AnimatedVisibility] with an `enter` as [fadeIn] and `exit` as [fadeOut].
+ *
+ * Usage:
+ * ```
+ * val visibleState = remember { mutableStateOf(false) }
+ * ...
+ * FadeVisibility(
+ *     visible = visibleState.value,
+ *     inDuration = 3.seconds,
+ *     inDelay = Duration.ZERO,
+ *     inEasing = LinearEasing,
+ *     initialOffset = 0f,
+ *     outDuration = 3.seconds,
+ *     outDelay = Duration.ZERO,
+ *     outEasing = LinearEasing,
+ *     targetOffset = 0f,
+ * ) {
+ *     BasicText(text = "foo")
+ * }
+ * ```
+ *
+ * Presentation:
+ * ```
+ * visibleState.value = true
+ * alpha: [0.00] -> [0.25] -> [0.50] -> [0.75] -> [1.00]
+ * visibleState.value = false
+ * alpha: [1.00] -> [0.75] -> [0.50] -> [0.25] -> [0.00]
+ * ```
+ *
+ * @author [Stanley Wintergreen](https://github.com/kepocnhh)
+ * @since 0.0.2
+ */
 @Suppress("LongParameterList", "FunctionNaming")
 @Composable
 fun FadeVisibility(
@@ -45,6 +78,44 @@ fun FadeVisibility(
     )
 }
 
+/**
+ * The wrapper for the [FadeVisibility] with one set of parameters for both in and out.
+ *
+ * Usage:
+ * ```
+ * val visibleState = remember { mutableStateOf(false) }
+ * ...
+ * FadeVisibility(
+ *     visible = visibleState.value,
+ *     duration = 3.seconds,
+ *     delay = Duration.ZERO,
+ *     easing = LinearEasing,
+ *     initialOffset = 0f,
+ *     targetOffset = 0f,
+ * ) {
+ *     BasicText(text = "foo")
+ * }
+ * ```
+ * or
+ * ```
+ * val visibleState = remember { mutableStateOf(false) }
+ * ...
+ * FadeVisibility(visible = visibleState.value) {
+ *     BasicText(text = "foo")
+ * }
+ * ```
+ *
+ * Presentation:
+ * ```
+ * visibleState.value = true
+ * alpha: [0.00] -> [0.25] -> [0.50] -> [0.75] -> [1.00]
+ * visibleState.value = false
+ * alpha: [1.00] -> [0.75] -> [0.50] -> [0.25] -> [0.00]
+ * ```
+ *
+ * @author [Stanley Wintergreen](https://github.com/kepocnhh)
+ * @since 0.0.2
+ */
 @Suppress("LongParameterList", "FunctionNaming")
 @Composable
 fun FadeVisibility(
