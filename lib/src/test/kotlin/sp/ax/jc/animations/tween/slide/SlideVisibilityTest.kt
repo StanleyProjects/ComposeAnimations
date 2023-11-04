@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.IntSize
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import sp.ax.jc.animations.util.AnimatedTest
 import kotlin.time.Duration.Companion.seconds
 
 @Suppress("StringLiteralDuplication", "MagicNumber")
