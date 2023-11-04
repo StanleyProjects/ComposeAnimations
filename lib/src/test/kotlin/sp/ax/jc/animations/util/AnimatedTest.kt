@@ -1,4 +1,4 @@
-package sp.ax.jc.animations.tween.slide
+package sp.ax.jc.animations.util
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box

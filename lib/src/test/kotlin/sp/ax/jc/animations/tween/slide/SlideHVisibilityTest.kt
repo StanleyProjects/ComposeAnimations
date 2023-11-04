@@ -17,6 +17,7 @@ import sp.ax.jc.animations.style.LocalSlideHStyle
 import sp.ax.jc.animations.style.LocalTweenStyle
 import sp.ax.jc.animations.style.SlideStyle
 import sp.ax.jc.animations.style.TweenStyle
+import sp.ax.jc.animations.util.AnimatedTest
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
