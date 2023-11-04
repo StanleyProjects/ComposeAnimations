@@ -1,20 +1,13 @@
 package sp.ax.jc.animations.tween.fade
 
-import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsNotDisplayed
-import androidx.compose.ui.test.assertValueEquals
-import androidx.compose.ui.test.hasAnyChild
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeTestRule
-import androidx.compose.ui.test.onAncestors
 import androidx.compose.ui.test.onChild
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onParent
-import org.junit.Assert.assertEquals
-import kotlin.time.Duration
 import sp.ax.jc.animations.util.advanceTimeBy
+import kotlin.time.Duration
 
 internal fun ComposeTestRule.assertAnimation(
     contentTag: String,
